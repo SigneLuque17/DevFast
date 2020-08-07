@@ -1,0 +1,58 @@
+.body{
+    background-color: black;
+    
+}
+
+.controles{
+    border-radius: 100%;
+    width: 5vw;
+    min-width: 60px;
+    color: aqua;
+}
+
+svg.controles{
+    fill: aqua;
+}
+.card-title {
+    float: left;
+    padding: .25rem!important;
+    margin: 0;
+}
+
+.icono{
+    margin-right: 1rem!important;
+    float: right;
+    margin-left: auto;
+
+}
+
+.card{
+    margin: 2.5rem 0 !important;
+    border-color: #9AECED;
+}
+
+.card-header{
+    padding: 0;
+    margin: 0;
+    background-color: #0b0f1d;
+    color: aqua;
+}
+
+.card-body{
+    background-color: #0b0f1d;
+    padding-top: 0em;
+    height: 360px;
+}
+
+.input-group-text{
+    background-color: black;
+}
+
+.resultado{
+    height: 400px;
+    width: 100%;
+    /* background-color: cadetblue; */
+    margin: 1rem!important;
+    border: 1px solid #DD377C;
+    /* border-color: #DD377C; */
+}

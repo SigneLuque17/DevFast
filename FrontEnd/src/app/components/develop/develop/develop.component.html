@@ -1,0 +1,85 @@
+<div class="body" >
+
+    <div class="ml-5 mr-5">
+      <div class="row"> 
+        <div style="color: white;" class="pl-3 pt-3">
+          <h4>Nombre de proyeto</h4>
+          <small>Última modificación: 26/07/20 18:00pm</small>
+        </div>
+        <div class="icono float-right d-inline-block pt-4">
+          <input type="image" class="controles p-2" src="assets/crear-snippet.png" style="border: 0;" alt="Submit" data-toggle="modal" data-target="#crearSnippet"/>
+          <input type="image" class="controles p-2" src="assets/done.png" style="border: 0;" alt="Submit" />
+        </div>
+      </div>
+        <div class="row">
+            <div class="col-lg-4">
+              <div class="card">
+                <div class="card-header p-1">
+                    <h3 class="card-title ml-3">HTML</h3>
+                </div> 
+                <div class="card-body">
+                      <app-editor [language]="html" style="height: 100% !important;"></app-editor>  
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-header p-1">
+                      <h3 class="card-title ml-3">CSS</h3>
+                      
+                  </div> 
+                  <div class="card-body">
+                      <app-editor [language]="css" #editor style="height:400px;"></app-editor>  
+
+                  </div>
+                </div>
+            </div>
+           <div class="col-lg-4">
+              <div class="card">
+                <div class="card-header p-1">
+                    <h3 class="card-title ml-3">JavaScript</h3>
+                </div> 
+                <div class="card-body">
+                      <app-editor [language]="javascript" #editor style="height:400px;"></app-editor>  
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="resultado" >
+                <h3>Resultado</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="crearSnippet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Crear Snippet</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea crear un snippet con el siguiente código?</p>
+        <div class="border rounded p-3">
+          <small style="color:#E592B5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae fuga ut nemo nostrum quam neque modi optio temporibus qui. Iure corporis maiores rerum, autem incidunt adipisci. Qui et corrupti natus.</small>
+        </div>
+        <div class="custom-control custom-checkbox mt-3">
+          <input type="checkbox" class="custom-control-input" id="customCheck1">
+          <label class="custom-control-label" for="customCheck1">Acepto</label>
+        </div>
+        <div class="col-6 input-group input-group-sm mb-3 mt-4">
+          <input type="text" class="form-control" aria-label="nombre" aria-describedby="nombre-snippet" placeholder="Ingrese el nombre del Snippet">
+        </div>
+      </div>
+      <div class="modal-footer text-center">
+        <button type="button" class="btn btn-primary entrar">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>

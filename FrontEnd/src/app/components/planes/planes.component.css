@@ -1,0 +1,28 @@
+h4{
+    font-family: 'Segoe UI Black';
+    color: #2C3B96;
+}
+
+hr{
+    border-color: #2c3a969d;
+}
+
+small{
+    font-size: 60%;
+}
+
+
+.card-img-top{
+    width: 70%;
+    align-self: center;
+    margin-top: 1rem!important;
+}
+
+.card{
+    border: 0px;
+}
+
+.card:hover{
+    background-color: #e592b554;
+    cursor: pointer;
+}

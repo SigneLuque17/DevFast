@@ -1,0 +1,39 @@
+
+.navbar{
+    background-color: #131D47;
+}
+
+.btn-outline-success{
+    color: #9BEBEC;
+    border-color: #9BEBEC;
+}
+.btn-outline-success:hover{
+    background-color: #9BEBEC;
+    color: #131D47;
+}
+
+.logo{
+    width: 15%;
+}
+
+a{
+    color: #9BEBEC !important;
+    font-weight: bold;
+    /* font-family: candara, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+}
+
+a.dropdown-item{
+    color: #131D47 !important;
+}
+
+.dropdown-item:hover{
+    background-color: #E592B5;
+}
+
+.dropdown-menu{
+   text-align: end; 
+}
+
+
+
+

@@ -1,0 +1,44 @@
+<div class="w-100">
+    <div class="row w-100 m-0">
+        <div>
+          <img class="img" src="assets/bubbles.gif" alt="">
+        </div>
+        <div class=" container col-10 col-lg-8 mt-4">
+          <form class="needs-validation pl-5 pr-5 border rounded" validate>
+                <h4 class="text-center mt-4">Crear cuenta</h4>
+                <hr class="mb-2">
+                <div class="form-row mt-4">
+                  <div class="w-100 mb-3">
+                    <input type="text" class="form-control " id="validationCustom01" placeholder="Nombre"  required>
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="w-100 mb-3">
+                      <input type="mail" class="form-control " id="validationCustom01" placeholder="Correo electrónico" required>
+                    </div>
+                  </div>
+                <div class="form-row">
+                    <div class="w-100 mb-3">
+                        <input type="password" class="form-control " id="validationCustom02" aria-describedby="passwordHelpInline" placeholder="Contraseña" required>
+                        <small id="passwordHelpInline" class="text-muted">
+                            Must be 8-20 characters long.
+                        </small>
+                      </div>
+                </div>
+                <div class="form-row ">
+                    <div class="w-100 mb-3">
+                        <input type="password" class="form-control " id="validationCustom02" placeholder="Confirmar contraseña" required>
+                      </div>
+                </div>
+                <div class="mt-5 mb-4 text-center">
+                    <div>
+                        <button [routerLink]="['/planes']" class="btn btn-primary entrar w-100" type="submit">Registrarse</button>
+                    </div>
+                    <div>
+                        <a [routerLink]="['/login']" class="mt-2"><small>Ya tengo una cuenta</small></a>
+                    </div>
+                </div>
+              </form>  
+        </div>
+    </div>
+</div>

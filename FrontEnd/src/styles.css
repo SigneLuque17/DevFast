@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+.iconos{
+    position: fixed; 
+}
+
+.sidebar{
+    width: 30%;
+    text-align: center;
+    background-color: #131D47;
+    color: white;
+    border-radius: 5px 30px 30px 5px;
+}
+
+.sidebar:hover{
+    width: 70%;
+    text-align: left;
+    padding-left: 2%;
+    background-color: #2C3B96;
+    cursor: pointer;
+}
+
+.entrar{
+    color: #9BEBEC;
+    border-color: #9BEBEC;
+    background-color: #131D47;
+
+}
+.entrar:hover{
+    background-color: #9BEBEC;
+    color: #131D47;
+}

@@ -1,0 +1,16 @@
+.empezar {
+   background-color: #9AECED; 
+   font-weight: bolder; 
+   color: #2C3B96;
+}
+
+.icon {
+    /* height: 200px; */
+    background-color: #00287A; /* For browsers that do not support gradients */
+    background-image: linear-gradient(#9AECED, white );
+}
+
+.logos{
+    width: 40%;
+    margin-top: 1%;
+}
