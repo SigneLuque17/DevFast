@@ -4,23 +4,36 @@
             <img class="img" src="assets/entrar.gif" alt="">
         </div>
         <div class=" container col-10 col-lg-8 mt-4">
-            <form class="needs-validation p-5 border rounded" validate>
+            <form class="needs-validation p-5 border rounded"  [formGroup]="formularioLogin">
                 <h4 class="text-center">Iniciar sesión</h4>
                 <hr class="mb-5">
                 <div class="form-row">
                   <div class="w-100 mb-3">
                     <label for="validationCustom01">Correo electrónico</label>
-                    <input type="mail" class="form-control " id="validationCustom01"  required>
+                    <input
+                        [class.is-invalid]="validation('email')" 
+                        type="mail" formControlName="email" class="form-control " id="validationCustom01"  required>
+                    <div class="invalid-feedback"> 
+                       No válido
+                    </div>
                   </div>
                 </div>
                 <div class="form-row mt-1">
                     <div class="w-100 mb-3">
                         <label for="validationCustom02">Contraseña</label>
-                        <input type="password" class="form-control " id="validationCustom02"  required>
-                      </div>
+                        <input 
+                        [class.is-invalid]="validation('password')" 
+                        type="password"  formControlName="password" class="form-control " id="validationCustom02" required >
+                        <div class="invalid-feedback"> 
+                            No válido
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-5 mb-2 text-center ">
-                    <button [routerLink]="['/home']" class="btn btn-primary entrar w-100" type="submit">Entrar</button>
+                    <button 
+                    [disabled]="!formularioLogin.valid"
+                     [routerLink]="['/home']" 
+                     class="btn btn-primary entrar w-100" type="submit" (click)="login()">Entrar</button>
                 </div>
                 <div class="mb-2 text-center">
                     <div>

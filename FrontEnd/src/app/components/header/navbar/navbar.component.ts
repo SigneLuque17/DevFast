@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   user = {
-    logged:false,
+    logged:true,
     nombre:'Signe Luque'
   }
 

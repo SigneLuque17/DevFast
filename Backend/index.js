@@ -15,9 +15,9 @@ app.use(express.json()); //servidor entiende formato json
 app.use(cors());
 
 
-
 //routes
-app.use('/api/devfast', require('./routes/devfast.routes'));
+app.use('/api/registrarse', require('./routes/usuarios.routes'));
+app.use('/api/carpetas', require('./routes/carpetas.routes'));
 
 //start
 app.listen(app.get('port'), () => { console.log('encendido', app.get('port')) });

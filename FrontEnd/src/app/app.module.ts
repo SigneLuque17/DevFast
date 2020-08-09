@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 //MODULOS
 import { MonacoEditorModule } from 'ngx-monaco-editor';
@@ -55,7 +57,10 @@ import { APP_ROUTING } from "./app.router";
     NgbModule,
     APP_ROUTING,
     MonacoEditorModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

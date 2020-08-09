@@ -4,35 +4,61 @@
           <img class="img" src="assets/bubbles.gif" alt="">
         </div>
         <div class=" container col-10 col-lg-8 mt-4">
-          <form class="needs-validation pl-5 pr-5 border rounded" validate>
+          <form class="needs-validation pl-5 pr-5 border rounded" [formGroup]="formularioRegistro" validate>
                 <h4 class="text-center mt-4">Crear cuenta</h4>
                 <hr class="mb-2">
                 <div class="form-row mt-4">
                   <div class="w-100 mb-3">
-                    <input type="text" class="form-control " id="validationCustom01" placeholder="Nombre"  required>
+                    <input 
+                    formControlName="nombre"
+                    [class.is-invalid]="validation('nombre')"
+                    type="text" class="form-control " id="validationCustom01" placeholder="Nombre"  required>
+                    <div class="invalid-feedback"> 
+                      No válido
+                    </div>
                   </div>
                 </div>
                 <div class="form-row">
                     <div class="w-100 mb-3">
-                      <input type="mail" class="form-control " id="validationCustom01" placeholder="Correo electrónico" required>
+                      <input 
+                            formControlName="email"
+                            [class.is-invalid]="validation('email')"
+                            type="mail" class="form-control " id="validationCustom02" placeholder="Correo electrónico" required>
+                      <div class="invalid-feedback"> 
+                          No válido
+                      </div>
                     </div>
-                  </div>
+                </div>
                 <div class="form-row">
                     <div class="w-100 mb-3">
-                        <input type="password" class="form-control " id="validationCustom02" aria-describedby="passwordHelpInline" placeholder="Contraseña" required>
-                        <small id="passwordHelpInline" class="text-muted">
-                            Must be 8-20 characters long.
-                        </small>
+                      <input 
+                            formControlName="password"
+                            [class.is-invalid]="validation('password')"
+                            type="password" class="form-control " id="validationCustom03" aria-describedby="passwordHelpInline" placeholder="Contraseña" required>
+                      <div class="invalid-feedback"> 
+                        <p id="passwordHelpInline" class="text-muted">
+                          Must be 8-20 characters long.
+                        </p>
                       </div>
+                    </div>
                 </div>
                 <div class="form-row ">
                     <div class="w-100 mb-3">
-                        <input type="password" class="form-control " id="validationCustom02" placeholder="Confirmar contraseña" required>
-                      </div>
+                        <input 
+                              formControlName="passVerified"
+                              [class.is-invalid]="validation('passVerified')"
+                              type="password" class="form-control " id="validationCustom04" placeholder="Confirmar contraseña" required>
+                        <div class="invalid-feedback"> 
+                          No válido
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-5 mb-4 text-center">
                     <div>
-                        <button [routerLink]="['/planes']" class="btn btn-primary entrar w-100" type="submit">Registrarse</button>
+                        <button 
+                        [disabled]="!formularioRegistro.valid"
+                        [routerLink]="['/planes']"
+                        class="btn btn-primary entrar w-100" type="button" (click)="registrarse()">Registrarse</button>
                     </div>
                     <div>
                         <a [routerLink]="['/login']" class="mt-2"><small>Ya tengo una cuenta</small></a>

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { EditorComponent} from '../../editor/editor.component'
 
 @Component({
   selector: 'app-develop',

@@ -15,6 +15,10 @@ const proyectosSchema = new Schema({
         type: String,
         require: true
     },
+    url_img: {
+        type: String,
+        require: true
+    },
     codigo_HTML: {
         type: String,
     },
@@ -35,11 +39,28 @@ const snippetsSchema = new Schema({
         type: String,
         require: true
     },
+    url_img: {
+        type: String,
+        require: true
+    },
     codigo: {
         type: String,
     }
+    
 });
 
+const carpetasSchema = new Schema({ 
+    nombre_carpeta: {
+        type: String,
+        require: true
+    },
+    carpeta_padre: {
+        type: String,
+        require: true
+    },
+    proyectos: [],
+    snippets: []
+});
 //esquema padre
 const UsuariosSchema = new Schema({
     nombre: {
@@ -62,29 +83,9 @@ const UsuariosSchema = new Schema({
         require: true
     },
     proyectos: [proyectosSchema],
-    snippets: [snippetsSchema]
-
+    snippets: [snippetsSchema],
+    carpetas: [carpetasSchema]
 });
 
-// planes
-const planesSchema = new Schema({
-    tipo_plan: {
-        type: String,
-        require: true
-    },
-    precio: {
-        type: String,
-        require: true
-    },
-    cantidad_proyectos: {
-        type: number,
-        require: true
-    },
-    cantidad_snippets: {
-        type: number,
-        require: true
-    }
-});
 
-module.exports = mongoose.model('planes', planesSchema); 
 module.exports = mongoose.model('usuarios', UsuariosSchema); 

@@ -19,5 +19,6 @@ export class EditorComponent implements OnInit {
     console.log(this.language);
     this.editorOptions = {theme: 'vs-dark', language: this.language};
     this.code = '';
+    // this.code;
   }
 }

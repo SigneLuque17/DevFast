@@ -2,42 +2,43 @@
     <h4><i class="fa fa-credit-card-alt" aria-hidden="true"></i> Planes</h4>
     <hr>
     <div class="row">
-        <div class="col-12 col-lg-4 col-md-3 col-sm-4">
-          <div class="card border">
+        <div class="col-12 col-lg-4 col-md-4 col-sm-4" *ngFor="let plan of planes">
+          <div class="card border mb-3" 
+          (click)="tipoPlan(plan._id)" 
+          
+          data-toggle="modal" 
+          data-target="#confirm">
             <div class="card-body text-center" style="background-color: rgb(243, 177, 243);">
-                <h3 class="card-text m-0 font-weight-bold">BÁSICO</h3>
+                <h3 class="card-text m-0 font-weight-bold">{{plan.tipo_plan}}</h3>
             </div>
             <div class="card-body pt-0 text-center">
-                <h1>$10</h1>
-                <p>6 Proyectos</p>
-                <p>4 Snippets</p>
+                <h1>{{plan.precio}}</h1>
+                <p>{{plan.cantidad_proyectos}} Proyectos</p>
+                <p>{{plan.cantidad_snippets}} Snippets</p>
             </div>
           </div>
         </div>
-        <div class="col-12 col-lg-4 col-md-3 col-sm-4">
-            <div class="card border">
-              <div class="card-body text-center" style="background-color: violet;">
-                  <h3 class="card-text m-0 font-weight-bold">ESTÁNDAR</h3>
-              </div>
-              <div class="card-body pt-0 text-center">
-                  <h1>$30</h1>
-                  <p>20 Proyectos</p>
-                  <p>10 Snippets</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-lg-4 col-md-3 col-sm-4">
-            <div class="card border">
-              <div class="card-body text-center" style="background-color: rgb(128, 69, 128);">
-                  <h3 class="card-text m-0 font-weight-bold">PRÉMIUM</h3>
-              </div>
-              <div class="card-body pt-0 text-center">
-                  <h1>$50</h1>
-                  <p>Proyectos ilimitados</p>
-                  <p>Snippets ilimitados</p>
-              </div>
-            </div>
-          </div>'
     </div>
 </div>
 <app-footer style="position: fixed; width: 100%; bottom: 0;"></app-footer>
+
+<!-- confirmación de datos -->
+<div [class.show]="showModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="confirm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Confirmar</h5>
+        <button type="button"  #closeAddExpenseModal class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Está seguro que desea registrarse?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">No</button>
+        <button type="submit" class="btn btn-primary entrar" [routerLink]="['/home']" (click)="addUser()">Registrarse</button>
+      </div>
+    </div>
+  </div>
+</div>
