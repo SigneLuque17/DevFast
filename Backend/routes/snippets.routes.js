@@ -18,9 +18,9 @@ const upload = multer({
 
 
 // router.get('/', snippetsController.getPlanes);
-router.post('/create-snippet', upload.single('files'), snippetsController.createSnippet);
-router.get('/show-snippet/:id', snippetsController.getSnippet);
-router.put('/edit-snippet/:id', snippetsController.editSnippet);
-router.delete('/delete-snippet/:id', snippetsController.deleteSnippet);
+routerSnippet.post('/create-snippet', upload.single('files'), snippetsController.createSnippet);
+routerSnippet.get('/show-snippet/:id', snippetsController.getSnippet);
+routerSnippet.put('/edit-snippet/:id', snippetsController.editSnippet);
+routerSnippet.delete('/delete-snippet/:id', snippetsController.deleteSnippet);
 
 module.exports = routerSnippet; 

@@ -18,9 +18,9 @@ const upload = multer({
 
 
 // router.get('/', carpetasController.getPlanes);
-router.post('/create-carpeta', upload.single('files'), carpetasController.createCarpeta);
-router.get('/show-carpeta/:id', carpetasController.getCarpeta);
-router.put('/edit-carpeta/:id', carpetasController.editCarpeta);
-router.delete('/delete-carpeta/:id', carpetasController.deleteCarpeta);
+routerCarpeta.post('/create-carpeta', upload.single('files'), carpetasController.createCarpeta);
+routerCarpeta.get('/show-carpeta/:id', carpetasController.getCarpeta);
+routerCarpeta.put('/edit-carpeta/:id', carpetasController.editCarpeta);
+routerCarpeta.delete('/delete-carpeta/:id', carpetasController.deleteCarpeta);
 
 module.exports = routerCarpeta; 
