@@ -17,7 +17,10 @@ app.use(cors());
 
 //routes
 app.use('/api/registrarse', require('./routes/usuarios.routes'));
-app.use('/api/carpetas', require('./routes/carpetas.routes'));
+app.use('/api/carpeta', require('./routes/carpetas.routes'));
+app.use('/api/proyecto', require('./routes/proyectos.routes'));
+app.use('/api/snippet', require('./routes/snippets.routes'));
+
 
 //start
 app.listen(app.get('port'), () => { console.log('encendido', app.get('port')) });

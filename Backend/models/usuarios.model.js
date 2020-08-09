@@ -31,11 +31,11 @@ const proyectosSchema = new Schema({
 });
 
 const snippetsSchema = new Schema({ 
-    nombreSnippet: {
+    nombre_snippet: {
         type: String,
         require: true
     },
-    fechaCreacion: {
+    fecha_creacion: {
         type: String,
         require: true
     },

@@ -2,32 +2,18 @@ const carpetasController = {};
 const usuariosModel = require('../models/usuarios.model');
 
 
-
-const carpetasSchema = new Schema({ 
-    nombre_carpeta: {
-        type: String,
-        require: true
-    },
-    carpeta_padre: {
-        type: String,
-        require: true
-    },
-    proyectos: [],
-    snippets: []
-});
-
 // usuariosController.getCarpetas = async(request, response) => { //función asincrona
 //     const carpetas = await usuariosModel.find(); //respuesta de espera
 //     response.json(carpetas);
 // };
 
-carpetasController.createUser = async (req, res) => {
+carpetasController.createCarpeta = async (req, res) => {
     const files = req.files;
     let status;
     
     if (req.body.nombre_carpeta && req.body.carpeta_padre) {
       status = 'carpeta almacenado correctamente';
-      const carpeta = new usuariosModel.carpetasSchema(req.body);
+      const carpeta = new usuariosModel.carpetasSchema(req.body.carpetasSchema);
       await carpeta.save();
       console.log(carpeta);
     } else {
@@ -54,7 +40,7 @@ carpetasController.getCarpeta = async(req, res) => {
 
 carpetasController.editCarpeta = async(req, res) => {
     const carpeta = {
-        nombre_carpeta: req.body.nombre_carpeta
+        nombre_carpeta: req.body.carpetasSchema.nombre_carpeta
     };
     await usuariosModel.carpetasSchema.findByIdAndUpdate(req.params.id, { $set: carpeta }, { new: true });
     res.json({
@@ -62,7 +48,7 @@ carpetasController.editCarpeta = async(req, res) => {
     })
 }
 
-carpetasController.deleteUser = async(req, res) => {
+carpetasController.deleteCarpeta = async(req, res) => {
     await usuariosModel.carpetasSchema.findByIdAndRemove(req.params.id);
     res.json({
         status: 'Carpeta eliminada'
