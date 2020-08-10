@@ -17,10 +17,9 @@ const upload = multer({
 });
 
 
-// router.get('/', proyectosController.getPlanes);
 routerProject.post('/create-project', upload.single('files'), proyectosController.createProject);
-routerProject.get('/show-project/:id', proyectosController.getProject);
-routerProject.put('/edit-project/:id', proyectosController.editProject);
-routerProject.delete('/delete-project/:id', proyectosController.deleteProject);
+routerProject.post('/show', proyectosController.getProject);
+routerProject.put('/edit-project/:id_usuario/:id_proyecto', proyectosController.editProject);
+routerProject.delete('/delete-project/:id_usuario/:id_proyecto', proyectosController.deleteProject);
 
 module.exports = routerProject; 

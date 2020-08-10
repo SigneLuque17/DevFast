@@ -14,7 +14,7 @@ snippetController.createSnippet = async (req, res) => {
     if (req.body.snippetsSchema.nombre_snippet && 
         req.body.snippetsSchema.fecha_creacion && 
         req.body.snippetsSchema.url_img &&
-        req.body.snippetsSchema.codigo
+        req.body.snippetsSchema.codigo 
         ) {
       status = 'Snippet almacenado correctamente';
       const snippet = new snippetModel.snippetsSchema(req.body.snippetsSchema);

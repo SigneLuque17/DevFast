@@ -15,10 +15,6 @@ const proyectosSchema = new Schema({
         type: String,
         require: true
     },
-    url_img: {
-        type: String,
-        require: true
-    },
     codigo_HTML: {
         type: String,
     },
@@ -27,6 +23,10 @@ const proyectosSchema = new Schema({
     },
     codigo_JS: {
         type: String,
+    },
+    carpeta_padre: {
+        type: String,
+        require: true
     }
 });
 
@@ -39,12 +39,12 @@ const snippetsSchema = new Schema({
         type: String,
         require: true
     },
-    url_img: {
-        type: String,
-        require: true
-    },
     codigo: {
         type: String,
+    },
+    carpeta_padre: {
+        type: String,
+        require: true
     }
     
 });
@@ -58,8 +58,10 @@ const carpetasSchema = new Schema({
         type: String,
         require: true
     },
-    proyectos: [],
-    snippets: []
+    fecha_creacion:{
+        type: String,
+        require: true
+    }
 });
 //esquema padre
 const UsuariosSchema = new Schema({

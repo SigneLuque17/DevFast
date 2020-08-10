@@ -7,6 +7,7 @@ export class Proyectos {
     codigo_HTML: string;
     codigo_CSS: string;
     codigo_JS: string;
+    carpeta_padre: string;
   
     constructor(){
   

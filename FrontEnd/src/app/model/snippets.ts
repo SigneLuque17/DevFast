@@ -4,6 +4,7 @@ export class Snippets {
     fecha_creacion: string;
     url_img: string;
     codigo: string;
+    carpeta_padre:string;
     
   
     constructor(){

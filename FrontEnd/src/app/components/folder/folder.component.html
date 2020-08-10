@@ -1,78 +1,45 @@
-<div class="mt-3 d-inline-block iconos" style="min-width: 200px;
-z-index: 2000;" >
-    <div class="border sidebar"> 
-      <h2><a [routerLink]="['/develop']" style="color: white;"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></h2>
-    </div>
-    <div class="border sidebar">
-        <h2><i class="fa fa-folder" aria-hidden="true"></i></h2>
-    </div>
-    <div class="border sidebar">
-        <h2><i class="fa fa-file-code-o" aria-hidden="true"></i></h2>
-    </div>
-</div>
+<app-new-project></app-new-project>
+
 <div class="container mt-4 pl-5 mb-4" style="min-height: 450px">
-    <h4><i class="fa fa-folder" aria-hidden="true"></i> Carpeta 1</h4>
-    <hr>
-    <h6 style="color:#e592b5 ;"><i class="fa fa-folder" aria-hidden="true"></i> Carpetas</h6>
-    <div class="row">
-        <div class="col-12 col-lg-2 col-md-3 col-sm-4">
-          <div class="card" [routerLink]="['/folder']">
-            <img src="assets/folder.ico" class="card-img-top" alt="carpeta">
+  <h4><i class="fa fa-folder mr-1" aria-hidden="true"></i> {{  carpetaPadre}}</h4>
+  <hr>
+  <h6 style="color:#e592b5 ; margin-top: 1%;"><i class="fa fa-folder mr-1" aria-hidden="true"></i> Carpetas</h6>
+  <div class="row">
+    <div class="col-12 col-lg-2 col-md-3 col-sm-4" *ngFor="let carpeta of carpetas">
+      <div class="card" (click)="verCarpeta(carpeta.nombre_carpeta,carpeta._id)"> 
+        <img src="assets/folder.ico" class="card-img-top" alt="carpeta">
+        <div class="card-body pt-0 text-center">
+          <p class="card-text m-0">{{carpeta.nombre_carpeta}}</p>
+          <p class="card-text"><small class="text-muted">{{carpeta.fecha_creacion}}</small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h6 style="color:#e592b5 ; margin-top: 1%;"><i class="fa fa-file-text-o" aria-hidden="true"></i> Proyectos</h6>
+  <div class="row">
+        <div class="col-12 col-lg-2 col-md-3 col-sm-4" *ngFor="let proyecto of proyectos">
+          <div class="card" (click)="verProyecto(proyecto.nombre_proyecto, proyecto._id)">
+            <img src="assets/proyecto.png" class="card-img-top pt-3 pb-3" alt="carpeta">
             <div class="card-body pt-0 text-center">
-              <p class="card-text m-0">Carpeta 1</p>
-              <p class="card-text"><small class="text-muted">Creado: 23/07/20</small></p>
+              <p class="card-text m-0">{{proyecto.nombre_proyecto}}</p>
+              <p class="card-text"><small class="text-muted">{{proyecto.fecha_creacion}}</small></p>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-lg-2 col-md-3 col-sm-4">
+        </div>      
+  </div>
+  <h6 style="color:#e592b5 ; margin-top: 1%;"><i class="fa fa-file-code-o" aria-hidden="true"></i> Snippets</h6>
+  <div class="row">
+        
+        <div class="col-12 col-lg-2 col-md-3 col-sm-4" *ngFor="let snippet of snippets">
           <div class="card">
-            <img src="assets/folder.ico" class="card-img-top" alt="carpeta">
+            <img src="assets/snippet.png" class="card-img-top pt-3 pb-3" alt="carpeta">
             <div class="card-body pt-0 text-center">
-              <p class="card-text m-0">Carpeta 2</p>
+              <p class="card-text m-0">{{snippet.nombre_snippet}}</p>
               <p class="card-text"><small class="text-muted">Creado: 23/07/20</small></p>
             </div>
           </div>
-        </div>
-        <div class="col-12 col-lg-2 col-md-3 col-sm-4">
-            <div class="card">
-              <img src="assets/folder.ico" class="card-img-top" alt="carpeta">
-              <div class="card-body pt-0 text-center">
-                <p class="card-text m-0">Carpeta 3</p>
-                <p class="card-text"><small class="text-muted">Creado: 23/07/20</small></p>
-              </div>
-            </div>
-          </div>
-    </div>
-    <h6 style="color:#e592b5 ; margin-top: 1%;"><i class="fa fa-file" aria-hidden="true"></i> Archivos</h6>
-    <div class="row">
-          <div class="col-12 col-lg-2 col-md-3 col-sm-4">
-            <div class="card">
-              <img src="assets/file.png" class="card-img-top pt-3 pb-3" alt="file">
-              <div class="card-body pt-0 text-center">
-                <p class="card-text m-0">Archivo 1</p>
-                <p class="card-text"><small class="text-muted">Creado: 23/07/20</small></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-lg-2 col-md-3 col-sm-4">
-            <div class="card">
-              <img src="assets/file.png" class="card-img-top pt-3 pb-3" alt="file">
-              <div class="card-body pt-0 text-center">
-                <p class="card-text m-0">Archivo 2</p>
-                <p class="card-text"><small class="text-muted">Creado: 23/07/20</small></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-12 col-lg-2 col-md-3 col-sm-4">
-            <div class="card">
-              <img src="assets/file.png" class="card-img-top pt-3 pb-3" alt="file">
-              <div class="card-body pt-0 text-center">
-                <p class="card-text m-0">Archivo 3</p>
-                <p class="card-text"><small class="text-muted">Creado: 23/07/20</small></p>
-              </div>
-            </div>
-          </div>
-    </div>
+        </div>      
+  </div>
 </div>
 <app-footer></app-footer>
 <!-- style="position: static;width: 100%;bottom: 0;" -->

@@ -17,6 +17,11 @@ export class PlanesComponent implements OnInit {
   showModal: boolean = false;
   planes: any = [];
   planSelected:string ='';
+  proyectos: any = [];
+  snippets:any = [];
+  carpetas:any=[];
+  idUsuario;
+
 
 
   constructor(private _usuarioService: UsuarioService, private _router: Router) { }
@@ -44,10 +49,6 @@ export class PlanesComponent implements OnInit {
   addUser() {
     console.log(this.usuario.nombre);
     console.log(this.planSelected);
-    // let plan = this.planes.filter( plan => plan._id === this.planSelected);
-    // let tipoPlan = plan[0].tipo_plan
-    // console.log(tipoPlan);
-    
 
     let datos = new FormData();
 
@@ -57,17 +58,23 @@ export class PlanesComponent implements OnInit {
     datos.set('perfil', '');
     datos.set('plan', this.planSelected);
 
+
     console.log(datos);
   
 
     this._usuarioService.createUser(datos)
         .subscribe(res => {
           console.log(res);
+          this.idUsuario = res;
+          localStorage.clear();
+          this.closeAddExpenseModal.nativeElement.click();
+          this.showModal=false;
+          localStorage.setItem("id", JSON.stringify(this.idUsuario));
         });
 
-    localStorage.clear();
-    this.closeAddExpenseModal.nativeElement.click();
-    this.showModal=false;
+
+
+
   }
 
   // eliminarData(){

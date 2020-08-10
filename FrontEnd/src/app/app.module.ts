@@ -30,6 +30,10 @@ import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.com
 
 //RUTAS
 import { APP_ROUTING } from "./app.router";
+import { NewProjectComponent } from './components/modals/new-project/new-project.component';
+
+//PIPES
+import { SafeURLPipe } from './pipes/safe-url.pipe';
 
 
 
@@ -49,7 +53,9 @@ import { APP_ROUTING } from "./app.router";
     CrearCuentaComponent,
     EditorComponent,
     PlanesComponent,
-    FolderComponent
+    FolderComponent,
+    NewProjectComponent,
+    SafeURLPipe
   ],
   imports: [
     BrowserModule,

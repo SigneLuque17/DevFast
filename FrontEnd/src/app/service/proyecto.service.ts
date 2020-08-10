@@ -24,20 +24,20 @@ export class ProyectoService {
 //     return this.http.get(this.URL_API);
 //   }
 
-  getProject(id: String){
-    return this.http.get(this.URL_API+'/show/'+id);
+  getProject(idUsuario: String, idProyecto:String){
+    return this.http.post(this.URL_API+'/show', {id_usuario: idUsuario, id_proyecto:idProyecto});
   }
 
   createProject(proyecto: any){
     return this.http.post(this.URL_API + '/create', proyecto);
   }
 
-  editProject(proyecto: Proyectos){
-    return this.http.put(this.URL_API + '/edit/' + `${proyecto._id}`, proyecto);
+  editProject(idUsuario: String, idProyecto:String, proyectoUpdated:any){//Crear un modelo de proyecto
+    return this.http.put(this.URL_API + '/edit-project/' + idUsuario + '/' + idProyecto, proyectoUpdated);
   }
 
   deleteProject(_id: string){
-    return this.http.delete(this.URL_API + '/delete' + `${_id}`)
+    return this.http.delete(this.URL_API + '/delete-project' + `${_id}`)
   }
 
 }

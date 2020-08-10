@@ -9,33 +9,38 @@ usuariosController.getPlanes = async(request, response) => { //función asincron
 };
 
 usuariosController.createUser = async (req, res) => {
-    const files = req.files;
-    let status;
-    
-    if (req.body.nombre && req.body.correo && req.body.contrasena && req.body.plan) {
-      status = 'Usuario almacenado correctamente';
-      const usuario = new usuariosModel(req.body);
-      await usuario.save();
+    const usuario = await new usuariosModel(req.body);
+      usuario.save();
       console.log(usuario);
-    } else {
-      const error = new Error('Dato no válido');
-      error.httpStatusCode = 400;
-      res.status(400).send(error);
-    }
-    
+      const idUser = await usuario._id;
+
     res.json({
-      status: 'status',
-      req: req.body
-    });
+        status: 'Usuario creado correctamente',
+        req: idUser,
+      });
   };
   
 
 usuariosController.getUser = async(req, res) => {
-    const user = await usuariosModel.findById(req.params.id);
+    // const user = await usuariosModel.findById(req.params.id);
+    // const user = await usuariosModel.filter( correo => correo.correo == req.body.correo);
+
+    // const correoUsuario = user.filter( correo => correo.correo == req.body.correo);
+    const correoUsuario = await usuariosModel.findOne({correo: {$eq:req.params.correo} }, function (err, docs) { 
+        if (err){ 
+            console.log(err) 
+        } 
+        else{ 
+            console.log("Result : ", docs); 
+        } 
+    });
+
 
     res.json({
         status: 'Received',
-        user: user
+        user: correoUsuario,
+        id: correoUsuario._id
+        // usuario: correoUsuario
     });
 };
 

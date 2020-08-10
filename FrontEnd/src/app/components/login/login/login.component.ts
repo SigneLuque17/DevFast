@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { UsuarioService } from "../../../service/usuario.service";
+
 
 
 @Component({
@@ -20,6 +22,12 @@ export class LoginComponent implements OnInit {
 
   login(){
     console.log(this.formularioLogin.value);
+    // this._usuarioService.getUser()
+    //     .subscribe(res => {
+    //       console.log(res);
+    //       this.idUsuario = res.id;
+
+    //     });
     
   }
 

@@ -19,13 +19,13 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'landing', component: LandingPageComponent },
     { path: 'snippet', component: SnippetComponent },
-    { path: 'develop', component: DevelopComponent },
+    { path: 'develop/:nombre/:id', component: DevelopComponent },
     { path: 'login', component: LoginComponent },
     { path: 'ajustes', component: AjustesComponent},
     { path: 'iniciarSesion', component: LoginFormularioComponent },
     { path: 'registrarse', component: CrearCuentaComponent},
     { path: 'planes', component: PlanesComponent},
-    { path: 'folder', component: FolderComponent},
+    { path: 'folder/:nombre/:id', component: FolderComponent},
     { path: '**', pathMatch: 'full', redirectTo: 'landing' }
 ];
 

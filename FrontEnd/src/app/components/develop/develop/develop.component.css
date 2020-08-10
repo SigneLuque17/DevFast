@@ -53,6 +53,13 @@ svg.controles{
     width: 100%;
     /* background-color: cadetblue; */
     margin: 1rem!important;
-    border: 1px solid #DD377C;
+    /* border: 1px solid #DD377C; */
     /* border-color: #DD377C; */
+}
+iframe{
+    border: 1px solid aqua;
+}
+
+.change:hover{
+    cursor: pointer;
 }

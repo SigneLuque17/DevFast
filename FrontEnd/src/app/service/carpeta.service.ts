@@ -20,9 +20,9 @@ export class CarpetaService {
     this.selectedCarpetas = new Carpetas();
   }
 
-//   getPlanes()  {
-//     return this.http.get(this.URL_API);
-//   }
+  getArchivos( idUsuario:string, idCarpeta:string = '' )  {
+    return this.http.post(this.URL_API, {id_usuario: idUsuario, id_carpeta:idCarpeta});
+  }
 
   getCarpeta(id: String){
     return this.http.get(this.URL_API+'/show/'+id);
