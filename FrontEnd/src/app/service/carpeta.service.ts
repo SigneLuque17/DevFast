@@ -28,8 +28,8 @@ export class CarpetaService {
     return this.http.get(this.URL_API+'/show/'+id);
   }
 
-  createCarpeta(carpeta: any){
-    return this.http.post(this.URL_API + '/create', carpeta);
+  createCarpeta(idUsuario: String, carpeta: any){
+    return this.http.post(this.URL_API + '/create-carpeta', {id_usuario: idUsuario, carpeta:carpeta});
   }
 
   editCarpeta(carpeta: Carpetas){

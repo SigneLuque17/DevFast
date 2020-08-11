@@ -9,7 +9,12 @@ proyectosController.createProject = async (req, res) => {
   usuario.proyectos.push(proyecto);
   usuario.save();
   console.log(usuario);
-  console.log(proyecto);
+  console.log(proyecto); 
+  
+  res.json({
+      status: 'status',
+      req: req.body
+    });
     // const files = req.files;
     // 
     
@@ -27,10 +32,7 @@ proyectosController.createProject = async (req, res) => {
     //   res.status(400).send(error);
     // }
     
-    res.json({
-      status: 'status',
-      req: req.body
-    });
+   
   };
   
 

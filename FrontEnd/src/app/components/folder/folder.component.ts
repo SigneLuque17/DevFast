@@ -15,7 +15,7 @@ export class FolderComponent implements OnInit {
   carpetas = [];
   snippets = [];
   proyectos = [];
-  idUsuario = '5f2f13a78232c6283cd50cff';
+  idUsuario:any = JSON.parse(localStorage.getItem("id"));
   carpetaPadre;
 
   constructor(private _carpetaService:CarpetaService, private activatedRoute: ActivatedRoute, private _router: Router) { 

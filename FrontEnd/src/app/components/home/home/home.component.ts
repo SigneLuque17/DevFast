@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   carpetas = [];
   snippets = [];
   proyectos = [];
-  idUsuario:any;
+  idUsuario:any = JSON.parse(localStorage.getItem("id"));
 
   constructor(private _carpetaService:CarpetaService, private _router: Router) { 
   this.idUsuario = JSON.parse(localStorage.getItem("id"));

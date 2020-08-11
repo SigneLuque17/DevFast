@@ -21,12 +21,6 @@ export class CrearCuentaComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.formularioRegistro.setValue({
-      nombre:'Signe',
-      email: 'signe@gmail.com',
-      password: 'asdasdasd',
-      passVerified: 'asdasdasd'
-    });
   }
 
   registrarse(){

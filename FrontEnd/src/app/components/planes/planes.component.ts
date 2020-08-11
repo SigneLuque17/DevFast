@@ -63,9 +63,9 @@ export class PlanesComponent implements OnInit {
   
 
     this._usuarioService.createUser(datos)
-        .subscribe(res => {
+        .subscribe((res:any) => {
           console.log(res);
-          this.idUsuario = res;
+          this.idUsuario = res.id;
           localStorage.clear();
           this.closeAddExpenseModal.nativeElement.click();
           this.showModal=false;

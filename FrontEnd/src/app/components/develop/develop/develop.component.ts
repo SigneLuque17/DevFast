@@ -24,7 +24,7 @@ export class DevelopComponent implements OnInit {
   //gestion de datos de proyecto
   proyecto;
   nombreProyecto;
-  idUsuario = '5f2f13a78232c6283cd50cff';
+  idUsuario:any = JSON.parse(localStorage.getItem("id"));
   codeNewHTML;
   codeNewCSS;
   codeNewJS;
@@ -40,7 +40,6 @@ export class DevelopComponent implements OnInit {
  
 
   constructor(private _proyectoService:ProyectoService, private activatedRoute: ActivatedRoute) {
-    // this.editarNombreProyecto();
     this.activatedRoute.params.subscribe(params => {
     console.log(params['id']);
     this.nombreProyecto = params['nombre'];
@@ -95,23 +94,25 @@ export class DevelopComponent implements OnInit {
   
     const cssURL = getBlobURL(css, 'text/css')
     const jsURL = getBlobURL(js, 'text/javascript')
-  
+    
     const source = `
       <html>
         <head>
           ${css && `<link rel="stylesheet" type="text/css" href="${cssURL}" />`}
-          ${js && `<script src="${jsURL}"></script>`}
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        </head>
-        <body style="background-color: unset;">
+          </head>
+          <body style="background-color: unset;">
           ${html || ''}
-        </body>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-      </html>
+          </body>
+          <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+          <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+          ${js && `<script src="${jsURL}"></script>`}
+          </html>
     `
+    console.log(js);
+    
   
     return getBlobURL(source, 'text/html')
   }
@@ -120,7 +121,7 @@ export class DevelopComponent implements OnInit {
     this.url = this.getGeneratedPageURL({
       html: this.codeNewHTML,
       css: this.codeNewCSS,
-      js: this.codeNewCSS
+      js: this.codeNewJS
     });
   }
 

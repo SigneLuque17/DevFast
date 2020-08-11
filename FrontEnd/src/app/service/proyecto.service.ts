@@ -20,16 +20,12 @@ export class ProyectoService {
     this.selectedProyectos = new Proyectos();
   }
 
-//   getPlanes()  {
-//     return this.http.get(this.URL_API);
-//   }
-
   getProject(idUsuario: String, idProyecto:String){
     return this.http.post(this.URL_API+'/show', {id_usuario: idUsuario, id_proyecto:idProyecto});
   }
 
-  createProject(proyecto: any){
-    return this.http.post(this.URL_API + '/create', proyecto);
+  createProject(idUsuario: String, proyecto:any){
+    return this.http.post(this.URL_API + '/create-project', {id_usuario: idUsuario, proyecto:proyecto});
   }
 
   editProject(idUsuario: String, idProyecto:String, proyectoUpdated:any){//Crear un modelo de proyecto

@@ -16,7 +16,7 @@ usuariosController.createUser = async (req, res) => {
 
     res.json({
         status: 'Usuario creado correctamente',
-        req: idUser,
+        id: idUser,
       });
   };
   
@@ -39,7 +39,7 @@ usuariosController.getUser = async(req, res) => {
     res.json({
         status: 'Received',
         user: correoUsuario,
-        id: correoUsuario._id
+        idUsuario: correoUsuario._id
         // usuario: correoUsuario
     });
 };
