@@ -1,13 +1,52 @@
 <div class="mt-3 d-inline-block iconos" style="min-width: 200px;
 z-index: 2000;" >
-    <div class="border sidebar" (click)="showModalCreateProject()"  data-toggle="modal" data-target="#crearProyecto"> 
-      <h2><a  style="color: white;"><i class="fa fa-plus-circle" aria-hidden="true"></i></a></h2>
+    <div class="border sidebar" (click)="showModalCreateProject()"  data-toggle="modal" data-target="#crearProyecto" (mouseover)="hideTextProyecto=false" (mouseout)="hideTextProyecto=true"> 
+      <h2 class="mt-1 mb-1">
+        <a  style="color: white;">
+          <div class="row ml-0 mr-0">
+            <div class="pl-2">
+              <i class="fa fa-plus-circle mb-1" aria-hidden="true"></i>
+            </div>
+            <div class="col">
+              <div style="font-size: 0.9rem; margin-left: 5%;" *ngIf="!hideTextProyecto">
+                Crear proyecto
+              </div>
+            </div>
+          </div>
+        </a>
+      </h2>
     </div>
-    <div class="border sidebar" (click)="showModalCreateFolder()" data-toggle="modal" data-target="#crearCarpeta">
-        <h2><a  style="color: white;"><i class="fa fa-folder" aria-hidden="true"></i></a></h2>
+    <div class="border sidebar" (click)="showModalCreateFolder()" data-toggle="modal" data-target="#crearCarpeta" (mouseover)="hideTextCarpeta=false" (mouseout)="hideTextCarpeta=true">
+        <h2 class="mt-1 mb-1">
+          <a  style="color: white;">
+            <div class="row ml-0 mr-0">
+              <div class="pl-2">
+                <i class="fa fa-folder" aria-hidden="true"></i>
+              </div>
+              <div class="col">
+                <div style="font-size: 0.9rem; margin-left: 5%;" *ngIf="!hideTextCarpeta">
+                  Crear carpeta
+                </div>
+              </div>
+            </div>
+          </a>
+        </h2>
     </div>
-    <div class="border sidebar">
-        <h2><i class="fa fa-file-code-o" aria-hidden="true"></i></h2>
+    <div class="border sidebar" (click)="showModalCreateFolder()" data-toggle="modal" data-target="#crearSnippet" (mouseover)="hideTextSnippet=false" (mouseout)="hideTextSnippet=true">
+        <h2 class="mt-1 mb-1">
+          <a  style="color: white;">
+            <div class="row ml-0 mr-0">
+              <div class="pl-2">
+                <i class="fa fa-file-code-o" aria-hidden="true"></i>
+              </div>
+              <div class="col">
+                <div style="font-size: 0.9rem; margin-left: 5%;" *ngIf="!hideTextSnippet">
+                  Crear snippet
+                </div>
+              </div>
+            </div>
+          </a>
+        </h2>
     </div>
 </div>
 
@@ -63,4 +102,31 @@ z-index: 2000;" >
       </div>
     </div>
   </div>
+</div>
+
+<!-- nuevo snippet -->
+<div [class.show]="showModalSnippet" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" id="crearSnippet">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear nueva carpeta</h5>
+        <button type="button"  #closeAddExpenseModal3 class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form class="needs-validation " [formGroup]="formularioSnippet" validate>
+           <div class="form-row">
+              <div class="col-md-12 mb-12 w-50 p-4">
+                  <input formControlName="nombre_snippet" type="text" class="form-control" id="nombreSnippet" placeholder="Ingrese el nombre" required>
+              </div>
+           </div>
+          <div class="modal-footer center">
+          <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary entrar" (click)="createSnippet()">Crear</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
 </div>

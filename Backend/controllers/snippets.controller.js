@@ -2,61 +2,67 @@ const snippetController = {};
 const snippetModel = require('../models/usuarios.model');
 
 
-// usuariosController.getCarpetas = async(request, response) => { //función asincrona
-//     const carpetas = await usuariosModel.find(); //respuesta de espera
-//     response.json(carpetas);
-// };
-
 snippetController.createSnippet = async (req, res) => {
-    const files = req.files;
-    let status;
-    
-    if (req.body.snippetsSchema.nombre_snippet && 
-        req.body.snippetsSchema.fecha_creacion && 
-        req.body.snippetsSchema.url_img &&
-        req.body.snippetsSchema.codigo 
-        ) {
-      status = 'Snippet almacenado correctamente';
-      const snippet = new snippetModel.snippetsSchema(req.body.snippetsSchema);
-      await snippet.save();
-      console.log(snippet);
-    } else {
-      const error = new Error('Dato no válido');
-      error.httpStatusCode = 400;
-      res.status(400).send(error);
-    }
-    
-    res.json({
+  const snippet = req.body.snippet;
+  const usuario = await snippetModel.findById(req.body.id_usuario);
+  usuario.snippets.push(snippet);
+  usuario.save();
+  console.log(usuario);
+  console.log(snippet); 
+  
+  res.json({
       status: 'status',
-      req: req.body.snippetsSchema
+      req: req.body
     });
   };
   
 
 snippetController.getSnippet = async(req, res) => {
-    const snippet = await snippetModel.snippetsSchema.findById(req.params.id);
+    const usuario = await snippetModel.findById(req.body.id_usuario);
+    const snippet = usuario.snippets.find(snippet => snippet._id == req.body.id_snippet);
+
 
     res.json({
         status: 'Received',
-        user: snippet
+        snippet: snippet
     });
 };
 
 snippetController.editSnippet = async(req, res) => {
-    const snippet = {
-        nombre_snippet: req.body.snippetsSchema.nombre_snippet
-    };
-    await snippetModel.snippetsSchema.findByIdAndUpdate(req.params.id, { $set: carpeta }, { new: true });
+    const snippetUpdated = await snippetModel.findOneAndUpdate(
+        { "_id": req.params.id_usuario, "snippets._id": req.params.id_snippet },
+        { 
+            "$set": {
+                "snippets.$.nombre_snippet": req.body.nombre_snippet,
+                "snippets.$.ultima_modificacion": req.body.ultima_modificacion,
+                "snippets.$.codigo": req.body.codigo
+            }
+        },{ 
+            new: true,
+            useFindAndModify:false,
+            upsert: true                //obtener data actualizada
+        }
+    );
+
+    const snippet = snippetUpdated.snippets.find(snippet => snippet._id == req.params.id_snippet );
+    
     res.json({
-        status: 'Snippet actualizada correctamente'
-    })
+        status: 'Snippet actualizado correctamente',
+        snippet: snippet
+    });
 }
 
 snippetController.deleteSnippet = async(req, res) => {
-    await snippetModel.snippetsSchema.findByIdAndRemove(req.params.id);
+    const usuario = await snippetModel.findById(req.params.id_usuario);
+    const snippet = usuario.snippets.id(req.params.id_snippet).remove();
+
+    usuario.save(function (err) {
+          if (err) return handleError(err);
+          console.log('Snippet eliminado con éxito');
+        });
     res.json({
-        status: 'Snippet eliminado'
-    })
+        status: 'Snippet eliminado correctamente',
+    });
 }
 
 

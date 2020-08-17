@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioService } from "../../../service/usuario.service";
 
 @Component({
   selector: 'app-navbar',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  nombreUsuario;
+  correo:any = JSON.parse(localStorage.getItem("correo"));
+
 
   user = {
     logged:true,
@@ -13,7 +17,13 @@ export class NavbarComponent implements OnInit {
   }
 
 
-  constructor() { }
+  constructor(private _usuarioService: UsuarioService) {
+    this._usuarioService.getUser(this.correo)
+        .subscribe((res:any) => {
+          console.log(res.user.nombre);
+          this.nombreUsuario=res.user.nombre;
+    });
+   }
 
   ngOnInit(): void {
   }

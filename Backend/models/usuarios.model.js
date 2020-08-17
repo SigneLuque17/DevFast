@@ -39,6 +39,10 @@ const snippetsSchema = new Schema({
         type: String,
         require: true
     },
+    ultima_modificacion: {
+        type: String,
+        require: true
+    },
     codigo: {
         type: String,
     },
@@ -82,6 +86,18 @@ const UsuariosSchema = new Schema({
     },
     plan: {
         type: String,
+        require: true
+    },
+    tipo_plan: {
+        type: String,
+        require: true
+    },
+    cantidad_proyectos: {
+        type: Number,
+        require: true
+    },
+    cantidad_snippets: {
+        type: Number,
         require: true
     },
     proyectos: [proyectosSchema],

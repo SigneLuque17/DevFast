@@ -18,6 +18,8 @@ const upload = multer({
 
 
 router.get('/', usuariosController.getPlanes);
+router.get('/showPlan/:idPlan', usuariosController.getPlan);
+
 router.post('/create', upload.single('files'), usuariosController.createUser);
 router.get('/show/:correo', usuariosController.getUser);
 router.put('/edit/:id', usuariosController.editUser);

@@ -27,10 +27,11 @@ import { FolderComponent } from './components/folder/folder.component';
 //FORMULARIOS
 import { LoginFormularioComponent } from './components/login-formulario/login-formulario.component';
 import { CrearCuentaComponent } from './components/crear-cuenta/crear-cuenta.component';
+import { NewProjectComponent } from './components/modals/new-project/new-project.component';
+
 
 //RUTAS
 import { APP_ROUTING } from "./app.router";
-import { NewProjectComponent } from './components/modals/new-project/new-project.component';
 
 //PIPES
 import { SafeURLPipe } from './pipes/safe-url.pipe';

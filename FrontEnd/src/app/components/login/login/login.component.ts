@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
           console.log(res.idUsuario);
           this.idUsuario = res.idUsuario;
           localStorage.setItem("id", JSON.stringify(this.idUsuario));
+          localStorage.setItem("correo", JSON.stringify(correo));
         });
     
   }

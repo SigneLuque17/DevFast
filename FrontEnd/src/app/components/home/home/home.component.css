@@ -24,3 +24,38 @@ small{
     background-color: #e592b554;
     cursor: pointer;
 }
+
+.dropdown-item{
+    color: deeppink;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.option{
+    height: 10px; 
+    color: deeppink;
+}
+
+.codigo-snippet{
+    background-color: #0b0f1d;
+    padding-top: 0em;
+    height: 360px;
+}
+
+.custom-select:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+option:hover{
+    background-color: #E592B5 !important;
+}
+
+option{
+    background-color: black; 
+    border-color: cadetblue; 
+    color:white;
+}

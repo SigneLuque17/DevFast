@@ -10,13 +10,13 @@
                 <button type="button" class="custom-file-input" class="btn btn_link" style="color: #E592B5;">Cambiar perfil</button>      
             </div>
        </div>
-       <div class="col-lg-5 col-md-12 col-sm-12">
+       <div class="col-lg-5 col-md-9 col-sm-12">
                 <div>
-                    <h3>Signe Elizabeth Luque</h3>
+                    <h3>{{nombreUsuario}}</h3>
                 </div>
                 <div class="mt-4 mb-5">
                     <div >
-                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> signe.luque@gmail.com</p>
+                        <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{correo}}</p>
                     </div>
                     <div>
                         <button type="button" class="btn btn_link pl-0" data-toggle="modal" data-target="#cambiarPassword" style="color: #E592B5;"> <i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña</button>      
@@ -28,18 +28,18 @@
                         <h5>Archivos</h5>
                     </div>
                     <div class="mt-2">
-                        <p>N° proyectos: 12</p>
+                        <p>N° proyectos: {{cantidadProyectos}}</p>
                     </div>
                     <div>
-                        <p>N° snippets: 6</p>
+                        <p>N° snippets: {{cantidadSnippets}}</p>
                     </div>  
                 </div>
        </div> 
        <div class="col-2">
           <div class="text-center">
-            <h5 class="plan">Premium</h5>
+            <h5 class="plan">{{tipoPlan}}</h5>
             <div>
-              <img src="assets/premium-icon.png"  class="w-50" style="min-width: 25%;"  alt="">
+              <img src="assets/premium-icon.png"  class="w-100" style="min-width: 25%;"  alt="">
             </div>
             <button type="button" class="btn btn_link" [routerLink]="['/planes']" style="color: #E592B5;">Cambiar plan</button>      
           </div>
@@ -77,3 +77,44 @@
       </div>
     </div>
   </div>
+
+  <!-- modal cambiar nombre -->
+<div [class.show]="showModalPass" [class.id]="modalPass" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="cambiar">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cambiar contraseña</h5>
+        <button type="button"  #closeAddExpenseModal class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation " [formGroup]="cambiarContrasena" validate>
+            <div class="form-group">
+                <input formControlName="oldPassword" [class.is-invalid]="validation('oldPassword')" type="password" class="form-control"  id="anterior" placeholder="Ingrese su contraseña anterior" required>
+                <div class="invalid-feedback"> 
+                  No válido
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="newPassword" [class.is-invalid]="validation('newPassword')" type="password" class="form-control"  id="nuevo" placeholder="Ingrese su nueva contraseña" required>
+                <div class="invalid-feedback"> 
+                  No válido
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="confirmNewPassword" [class.is-invalid]="validation('confirmNewPassword')" type="password" class="form-control"  id="verificar" placeholder="Confirmar contraseña" required>
+                <div class="invalid-feedback"> 
+                  No válido
+                </div>
+            </div>
+
+            <div class="modal-footer center">
+              <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">Cancelar</button>
+              <button  [disabled]="!cambiarContrasena.valid" type="button" class="btn btn-primary entrar" (click)="cambiarPassword()">Guardar</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+</div>

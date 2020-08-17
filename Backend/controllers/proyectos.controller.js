@@ -74,10 +74,18 @@ proyectosController.editProject = async(req, res) => {
 }
 
 proyectosController.deleteProject = async(req, res) => {
-    await proyectosModel.proyectosSchema.findByIdAndRemove(req.params.id);
+   
+    const usuario = await proyectosModel.findById(req.params.id_usuario);
+    const proyecto = usuario.proyectos.id(req.params.id_proyecto).remove();
+
+    usuario.save(function (err) {
+          if (err) return handleError(err);
+          console.log('Proyecto eliminado con éxito');
+        });
     res.json({
-        status: 'Proyecto eliminada'
-    })
+        status: 'Proyecto eliminado correctamente',
+    });
+
 }
 
 

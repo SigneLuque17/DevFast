@@ -5,8 +5,12 @@ export class Usuario {
   contrasena: string;
   perfil: string;
   plan: string;
+  tipo_plan: string;
+  cantidad_proyectos: number;
+  cantidad_snippets: number;
   proyectos:[];
   snippets: [];
+
 
   constructor(){
 

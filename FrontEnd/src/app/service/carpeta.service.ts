@@ -32,12 +32,12 @@ export class CarpetaService {
     return this.http.post(this.URL_API + '/create-carpeta', {id_usuario: idUsuario, carpeta:carpeta});
   }
 
-  editCarpeta(carpeta: Carpetas){
-    return this.http.put(this.URL_API + '/edit/' + `${carpeta._id}`, carpeta);
+  editCarpeta(idUsuario: String, idCarpeta:String, carpetaUpdated:any){
+    return this.http.put(this.URL_API + '/edit-carpeta/' + idUsuario + '/' + idCarpeta, carpetaUpdated);
   }
 
-  deleteCarpeta(_id: string){
-    return this.http.delete(this.URL_API + '/delete' + `${_id}`)
+  deleteCarpeta(idUsuario: String, idCarpeta:String){
+    return this.http.delete(this.URL_API + '/delete-carpeta/' + idUsuario + '/' + idCarpeta)
   }
 
 }

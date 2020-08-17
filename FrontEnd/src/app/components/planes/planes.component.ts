@@ -70,11 +70,9 @@ export class PlanesComponent implements OnInit {
           this.closeAddExpenseModal.nativeElement.click();
           this.showModal=false;
           localStorage.setItem("id", JSON.stringify(this.idUsuario));
+          localStorage.setItem("correo", JSON.stringify(this.usuario.email));
+
         });
-
-
-
-
   }
 
   // eliminarData(){

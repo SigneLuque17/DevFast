@@ -46,26 +46,57 @@ carpetasController.createCarpeta = async (req, res) => {
   };
   
 carpetasController.editCarpeta = async(req, res) => {
-    const carpeta = {
-        nombre_carpeta: req.body.carpetasSchema.nombre_carpeta
-    };
-    await usuariosModel.findByIdAndUpdate(req.params.id, { $set: carpeta }, { new: true });
-    res.json({
-        status: 'Carpeta actualizada correctamente'
-    })
+  const carpetaUpdated = await usuariosModel.findOneAndUpdate(
+    { "_id": req.params.id_usuario, "carpetas._id": req.params.id_carpeta },
+    { 
+        "$set": {
+            "carpetas.$.nombre_carpeta": req.body.nombre_carpeta
+        }
+    },{ 
+        new: true,
+        useFindAndModify:false,
+        upsert: true                //obtener data actualizada
+    }
+  );
+
+  const carpeta = carpetaUpdated.proyectos.find(carpeta => carpeta._id == req.params.id_carpeta );
+
+  res.json({
+      status: 'Carpeta actualizado correctamente',
+      folder: carpeta
+  });
 }
 
 carpetasController.deleteCarpeta = async(req, res) => {
-    await usuariosModel.carpetasSchema.findByIdAndRemove(req.params.id);
-    res.json({
-        status: 'Carpeta eliminada'
-    })
+  const usuario = await usuariosModel.findById(req.params.id_usuario);
+
+  const carpeta = usuario.carpetas.id(req.params.id_carpeta);
+  
+  if (carpeta) {
+    carpeta.remove();
+
+    usuario.proyectos.forEach(proyecto => {
+      if (proyecto.carpeta_padre === req.params.id_carpeta) {
+        proyecto.remove();
+      }
+    });
+    usuario.carpetas.forEach(carpeta => {
+      if (carpeta.carpeta_padre === req.params.id_carpeta || carpeta.carpeta_padre==='') {
+        carpeta.remove();
+      }
+    });
+      
+  }
+
+  usuario.save(function (err) {
+        if (err) return handleError(err);
+        console.log('carpeta eliminada con éxito');
+        res.json({
+            status: 'Carpeta eliminada correctamente'
+        })
+      });
 }
 
-// async function getArchivos(idUsuario, idCarpeta = '') {
-
-//   return carpetas;
-// }
 
 
 module.exports = carpetasController;

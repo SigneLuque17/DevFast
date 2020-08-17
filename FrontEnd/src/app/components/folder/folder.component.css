@@ -24,3 +24,15 @@ small{
     background-color: #e592b554;
     cursor: pointer;
 }
+.dropdown-item{
+    color: deeppink;
+}
+
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+.option{
+    height: 10px; 
+    color: deeppink;
+}

@@ -17,10 +17,9 @@ const upload = multer({
 });
 
 
-// router.get('/', snippetsController.getPlanes);
 routerSnippet.post('/create-snippet', upload.single('files'), snippetsController.createSnippet);
-routerSnippet.get('/show-snippet/:id', snippetsController.getSnippet);
-routerSnippet.put('/edit-snippet/:id', snippetsController.editSnippet);
-routerSnippet.delete('/delete-snippet/:id', snippetsController.deleteSnippet);
+routerSnippet.post('/show-snippet', snippetsController.getSnippet);
+routerSnippet.put('/edit-snippet/:id_usuario/:id_snippet', snippetsController.editSnippet);
+routerSnippet.delete('/delete-snippet/:id_usuario/:id_snippet', snippetsController.deleteSnippet);
 
 module.exports = routerSnippet; 

@@ -32,8 +32,8 @@ export class ProyectoService {
     return this.http.put(this.URL_API + '/edit-project/' + idUsuario + '/' + idProyecto, proyectoUpdated);
   }
 
-  deleteProject(_id: string){
-    return this.http.delete(this.URL_API + '/delete-project' + `${_id}`)
+  deleteProject(idUsuario: String, idProyecto:String){
+    return this.http.delete(this.URL_API + '/delete-project/' + idUsuario + '/' + idProyecto)
   }
 
 }

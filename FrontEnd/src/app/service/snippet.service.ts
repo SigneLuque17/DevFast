@@ -24,20 +24,19 @@ export class SnippetService {
 //     return this.http.get(this.URL_API);
 //   }
 
-  getSnippet(id: String){
-    return this.http.get(this.URL_API+'/show/'+id);
+  getSnippet(idUsuario: String, idSnippet:String){
+    return this.http.post(this.URL_API+'/show-snippet', {id_usuario: idUsuario, id_snippet:idSnippet});
   }
 
-  createSnippet(snippet: any){
-    return this.http.post(this.URL_API + '/create', snippet);
+  createSnippet(idUsuario: String, snippet:any){
+    return this.http.post(this.URL_API + '/create-snippet', {id_usuario: idUsuario, snippet:snippet});
+  }
+  editSnippet(idUsuario: String, idSnippet:String, snippetUpdated:any){
+    return this.http.put(this.URL_API + '/edit-snippet/' + idUsuario + '/' + idSnippet, snippetUpdated);
   }
 
-  editSnippet(snippet: Snippets){
-    return this.http.put(this.URL_API + '/edit/' + `${snippet._id}`, snippet);
-  }
-
-  deleteSnippet(_id: string){
-    return this.http.delete(this.URL_API + '/delete' + `${_id}`)
+  deleteSnippet(idUsuario: String, idSnippet:String){
+    return this.http.delete(this.URL_API + '/delete-snippet/' + idUsuario + '/' + idSnippet)
   }
 
 }

@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import {FormControl, FormGroup, Validators, MaxLengthValidator} from '@angular/forms';
 import { ProyectoService } from '../../../service/proyecto.service';
 import { CarpetaService } from '../../../service/carpeta.service';
+import { SnippetService } from '../../../service/snippet.service';
+
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 
@@ -14,6 +16,11 @@ import { ActivatedRoute } from "@angular/router";
 export class NewProjectComponent implements OnInit {
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
   @ViewChild('closeAddExpenseModal2') closeAddExpenseModal2: ElementRef;
+  @ViewChild('closeAddExpenseModal3') closeAddExpenseModal3: ElementRef;
+
+  hideTextProyecto: boolean;
+  hideTextCarpeta: boolean;
+  hideTextSnippet: boolean;
 
 
   idUsuario:any = JSON.parse(localStorage.getItem("id"));
@@ -22,6 +29,8 @@ export class NewProjectComponent implements OnInit {
 
   showModalProyecto: boolean = false;
   showModalCarpeta: boolean = false;
+  showModalSnippet: boolean = false;
+  
 
   formularioProyecto:FormGroup = new FormGroup({
     nombre_proyecto: new FormControl('', [Validators.required])
@@ -31,8 +40,15 @@ export class NewProjectComponent implements OnInit {
     nombre_carpeta: new FormControl('', [Validators.required])
   });
 
-  constructor(private _proyectoService: ProyectoService, private _carpetaService: CarpetaService, private activatedRoute: ActivatedRoute) { 
+  formularioSnippet:FormGroup = new FormGroup({
+    nombre_snippet: new FormControl('', [Validators.required])
+  });
+
+  constructor(private _proyectoService: ProyectoService, private _carpetaService: CarpetaService,private _snippetService: SnippetService, private activatedRoute: ActivatedRoute) { 
   this.idUsuario = JSON.parse(localStorage.getItem("id"));
+  this.hideTextProyecto = true;
+  this.hideTextCarpeta = true;
+  this.hideTextSnippet = true;
 
   }
 
@@ -46,6 +62,11 @@ export class NewProjectComponent implements OnInit {
   showModalCreateFolder(){
     this.showModalCarpeta = true;
   }
+
+  showModalCreateSnippet(){
+    this.showModalSnippet = true;
+  }
+
   createProject(){
     this.activatedRoute.params.subscribe(params => {
       console.log(params['id']);
@@ -118,4 +139,44 @@ export class NewProjectComponent implements OnInit {
     }
   });
   }
+
+  createSnippet(){
+    this.activatedRoute.params.subscribe(params => {
+      console.log(params['id']);
+      if(params['id']==undefined){
+        this.idCarpetaPadre = "";
+      } else {
+      this.idCarpetaPadre = params['id'];
+      }
+    const pipe = new DatePipe('en-US');
+    const now = Date.now();
+    const myFormattedDate = pipe.transform(now, 'longDate');
+    const myFormattedDate2 = pipe.transform(now, 'short');
+    this.fechaCreado=myFormattedDate;
+
+
+    if (this.formularioSnippet.get('nombre_snippet').valid) {
+      let datos = {
+        'nombre_snippet':this.formularioSnippet.get("nombre_snippet").value,
+        'fecha_creacion':myFormattedDate,
+        'ultima_modificacion':myFormattedDate2,
+        'codigo':"",
+        'carpeta_padre':this.idCarpetaPadre
+      }
+
+      this._snippetService.createSnippet(this.idUsuario, datos)
+          .subscribe((res:any) => {
+            console.log(res);
+            // this.idCarpetaPadre = res.carpeta_padre;
+
+            this.closeAddExpenseModal3.nativeElement.click();
+            this.showModalSnippet=false;
+          });
+         
+    }
+  });
+  }
+
+
+
 }
