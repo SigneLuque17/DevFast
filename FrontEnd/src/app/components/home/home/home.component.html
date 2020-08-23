@@ -1,6 +1,8 @@
-<app-new-project></app-new-project>
+<app-new-project (evento)="actualizaElemento($event)" ></app-new-project>
 <div class="container mt-4 pl-5 mb-4" style="min-height: 450px">
-    <h4><i class="fa fa-folder" aria-hidden="true"></i> Mis carpetas</h4>
+  <div>
+    <h4><i class="fa fa-folder" aria-hidden="true"></i> Mis carpetas</h4> 
+  </div>
     <hr>
     <div class="row">
       <div class="col-12 col-lg-2 col-md-3 col-sm-4" *ngFor="let carpeta of carpetas">
@@ -32,9 +34,10 @@
                 <div class="dropdown-menu" style="min-width: 7px !important;">
                   <a class="dropdown-item pl-2 pr-2" data-toggle="modal" data-target="#cambiar" (click)='showModalEdit(proyecto._id, "proyecto")'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                   <a class="dropdown-item pl-2 pr-2" data-toggle="modal" data-target="#confirm" (click)='showModalDelete(proyecto._id, "proyecto")'><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  <a class="dropdown-item pl-2 pr-2"  (click)="download('proyecto', proyecto._id)"><i class="fa fa-download" aria-hidden="true"></i></a>
                 </div>
               </div>
-              <img src="assets/proyecto.png" class="card-img-top pt-3 pb-2" alt="carpeta" (click)="verProyecto(proyecto.nombre_proyecto, proyecto._id)">
+              <img src="assets/proyecto.png" class="card-img-top pt-3 pb-2" alt="prpyecto" (click)="verProyecto(proyecto.nombre_proyecto, proyecto._id)">
               <div class="card-body pt-0 text-center">
                 <p class="card-text m-0">{{proyecto.nombre_proyecto}}</p>
                 <p class="card-text"><small class="text-muted">{{proyecto.fecha_creacion}}</small></p>
@@ -52,6 +55,7 @@
                 <div class="dropdown-menu" style="min-width: 7px !important;">
                   <a class="dropdown-item pl-2 pr-2" data-toggle="modal" data-target="#cambiar" (click)='showModalEdit(snippet._id, "snippet")'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                   <a class="dropdown-item pl-2 pr-2" data-toggle="modal" data-target="#confirm" (click)='showModalDelete(snippet._id, "snippet")'><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  <a class="dropdown-item pl-2 pr-2"  (click)="download('snippet',snippet._id)"><i class="fa fa-download" aria-hidden="true"></i></a>
                 </div>
               </div>
               <img src="assets/snippet.png"  data-toggle="modal" data-target="#modifySnippet" (click)='showModalModifySnippet(snippet._id)' class="card-img-top pt-3 pb-3" alt="carpeta">
@@ -70,7 +74,7 @@
 <div  [class.show]="showModalEdit" [class.id]="modalEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="cambiar">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #131D47; color:aqua">
         <h5 class="modal-title">Editar nombre de {{tipoArchivo}}</h5>
         <button type="button"  #closeAddExpenseModal class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -96,7 +100,7 @@
 <div [class.show]="showModalEliminar" [class.hide]="!showModalEliminar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="confirm">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #131D47; color:aqua">
         <h5 class="modal-title">Confirmar</h5>
         <button type="button"  #closeAddExpenseModal1 class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -106,8 +110,8 @@
         <p>Está seguro que desea eliminar {{tipoArchivo == 'carpeta'? 'esta': 'este'}} {{tipoArchivo}}?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">No</button>
-        <button type="submit" class="btn btn-primary entrar" (click)="eliminar()">Eliminar</button>
+        <button type="button" class="btn entrar" data-dismiss="modal">No</button>
+        <button type="submit" class="btn  entrar" (click)="eliminar()">Eliminar</button>
       </div>
     </div>
   </div>
@@ -122,28 +126,28 @@
             <button type="button" style="color: aqua;" #closeAddExpenseModal2 class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h5 class="modal-title">{{nombreSnippet}}</h5>
+            <h5 class="modal-title">{{snippet.nombre_snippet}}</h5>
         </div>
           <div class="position-absolute mt-4" style="min-width: 7px">
-            <small ><b>Última modificación:</b> {{ultimaMod}}</small>
+            <small ><b>Última modificación:</b> {{snippet.ultima_modificacion}}</small>
           </div>
           
       </div>
       <div class="modal-body codigo-snippet pl-4 pr-4">
         <div>
-          <select class="custom-select custom-select-sm w-25 mt-2 mb-2 position-absolute" style="background-color: initial; right: 5%;">
-            <option selected style="color: darkgray;">Lenguaje</option>
-            <option value="javascript">javascript</option>
-            <option value="typescript">typescript</option>
-            <option value="php">php</option>
-            <option value="java">java</option>
-            <option value="python">python</option>
-            <option value="csharp">csharp</option>
-            <option value="sql">sql</option>
+          <select class="custom-select custom-select-sm w-25 mt-2 mb-2 position-absolute"  (change)="lenguajeSnippet($event.target.value)">
+            <!-- <option disabled selected >Lenguaje</option> -->
+            <option value="csharp">C#</option>
+            <option value="java">Java</option>
+            <option value="javascript" selected>Javascript</option>
+            <option value="php">PHP</option>
+            <option value="python">Python</option>
+            <option value="sql">SQL</option>
+            <option value="typescript">Typescript</option>
           </select>
         </div>
         <div style="height: 300px;" class="mt-5">
-          <app-editor (codeNew)="actualizaCodigo($event)" [code]="codigoSnippet" [language]="lenguaje" style="width: 100%; height: 100% !important;"></app-editor>  
+          <app-editor (codeNew)="actualizaCodigo($event)" [code]="snippet.codigo" [language]="lenguaje" style="width: 100%; height: 100% !important;"></app-editor>  
         </div>
       </div>
       <div class="modal-footer" style="border-color:aqua;">

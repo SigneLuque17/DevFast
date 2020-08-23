@@ -8,12 +8,11 @@ import { UsuarioService } from "../../../service/usuario.service";
 })
 export class NavbarComponent implements OnInit {
   nombreUsuario;
-  correo:any = JSON.parse(localStorage.getItem("correo"));
+  correo:any = JSON.parse(sessionStorage.getItem("correo"));
 
 
   user = {
-    logged:true,
-    nombre:'Signe Luque'
+    logged:true
   }
 
 
@@ -23,12 +22,17 @@ export class NavbarComponent implements OnInit {
           console.log(res.user.nombre);
           this.nombreUsuario=res.user.nombre;
     });
+
+    if (sessionStorage.length == 0) {
+      this.user.logged=false;
+    }
+
    }
 
   ngOnInit(): void {
   }
   
   eliminarData(){
-      localStorage.clear();
+      sessionStorage.clear();
     }
 }

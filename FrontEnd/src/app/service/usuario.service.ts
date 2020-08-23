@@ -32,8 +32,8 @@ export class UsuarioService {
     return this.http.post(this.URL_API + '/create', usuario);
   }
 
-  editUser(usuario: Usuario){
-    return this.http.put(this.URL_API + '/edit/' + `${usuario._id}`, usuario);
+  editUser(idUsuario: String, usuario: any){
+    return this.http.put(this.URL_API + '/edit/'+idUsuario, usuario);
   }
 
   deleteUser(_id: string){

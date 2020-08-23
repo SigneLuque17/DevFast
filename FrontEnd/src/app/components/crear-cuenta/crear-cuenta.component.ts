@@ -36,7 +36,7 @@ export class CrearCuentaComponent implements OnInit {
 
        
       console.log('valido');
-      localStorage.setItem("usuario", JSON.stringify(this.formularioRegistro.value));
+      sessionStorage.setItem("usuario", JSON.stringify(this.formularioRegistro.value));
     }
 
 

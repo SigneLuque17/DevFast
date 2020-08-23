@@ -25,19 +25,6 @@ carpetasController.createCarpeta = async (req, res) => {
     usuario.save();
     console.log(usuario);
     console.log(carpeta);
-    // const files = req.files;
-    // let status;
-    
-    // if (req.body.nombre_carpeta && req.body.carpeta_padre) {
-    //   status = 'carpeta almacenado correctamente';
-    //   const carpeta = new usuariosModel.carpetasSchema(req.body.carpetasSchema);
-    //   await carpeta.save();
-    //   console.log(carpeta);
-    // } else {
-    //   const error = new Error('Dato no válido');
-    //   error.httpStatusCode = 400;
-    //   res.status(400).send(error);
-    // }
     
     res.json({
       status: 'status',
@@ -59,11 +46,14 @@ carpetasController.editCarpeta = async(req, res) => {
     }
   );
 
-  const carpeta = carpetaUpdated.proyectos.find(carpeta => carpeta._id == req.params.id_carpeta );
+  const carpetaActualizada = carpetaUpdated.carpetas.find(carpeta => carpeta._id == req.params.id_carpeta );
+  const usuario = await usuariosModel.findById(req.params.id_usuario);
+  const carpetas = usuario.carpetas.filter( carpeta => carpeta.carpeta_padre == carpetaActualizada.carpeta_padre);
 
   res.json({
       status: 'Carpeta actualizado correctamente',
-      folder: carpeta
+      folder: carpetaActualizada,
+      carpetas: carpetas
   });
 }
 
@@ -71,6 +61,7 @@ carpetasController.deleteCarpeta = async(req, res) => {
   const usuario = await usuariosModel.findById(req.params.id_usuario);
 
   const carpeta = usuario.carpetas.id(req.params.id_carpeta);
+  const idCarpetaPadre = carpeta.carpeta_padre;
   
   if (carpeta) {
     carpeta.remove();
@@ -81,18 +72,26 @@ carpetasController.deleteCarpeta = async(req, res) => {
       }
     });
     usuario.carpetas.forEach(carpeta => {
-      if (carpeta.carpeta_padre === req.params.id_carpeta || carpeta.carpeta_padre==='') {
+      if (carpeta.carpeta_padre === req.params.id_carpeta) {
         carpeta.remove();
       }
     });
-      
+    usuario.snippets.forEach(snippet => {
+      if (snippet.carpeta_padre === req.params.id_carpeta ) {
+        snippet.remove();
+      }
+    });
   }
 
+  const carpetas = usuario.carpetas.filter( carpeta => carpeta.carpeta_padre === idCarpetaPadre);
+  console.log(carpetas);
+  
   usuario.save(function (err) {
         if (err) return handleError(err);
         console.log('carpeta eliminada con éxito');
         res.json({
-            status: 'Carpeta eliminada correctamente'
+            status: 'Carpeta eliminada correctamente',
+            carpetas: carpetas
         })
       });
 }

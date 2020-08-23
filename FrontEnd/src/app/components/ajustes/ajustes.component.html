@@ -4,11 +4,27 @@
     <div class="row">
        <div class="col-lg-3 text-center">
             <div>
-                <img class="border rounded" src="assets/profile.png" alt="perfil">
+                <img class="border rounded img-fluid" style="width: 200px; height: 200px;" [src]="src" alt="perfil">
             </div>
-            <div class="custom-file">
-                <button type="button" class="custom-file-input" class="btn btn_link" style="color: #E592B5;">Cambiar perfil</button>      
-            </div>
+            <!-- <div class="custom-file">
+              <label   for="validationServer05">
+              </label>
+            </div> -->
+            <label for="validationServer05" type="button" class="btn btn_link" style="color: #E592B5;">Cambiar perfil</label>      
+            <br>
+            <button class="btn entrar" [hidden]="!imagenSeleccionada" (click)="cambiarPerfil()">Aceptar</button>
+            
+            <input
+                  type="file"
+                  accept="image/*"
+                  class="custom-file-input"
+                  id="validationServer05"
+                  aria-describedby="inputGroupFileAddon01"
+                  name="validationServer05"
+                  multiple
+                  (imageSelected)="selected($event)"
+                  [imageToDataUrl]="options"
+            >
        </div>
        <div class="col-lg-5 col-md-9 col-sm-12">
                 <div>
@@ -19,7 +35,7 @@
                         <p><i class="fa fa-envelope-o" aria-hidden="true"></i> {{correo}}</p>
                     </div>
                     <div>
-                        <button type="button" class="btn btn_link pl-0" data-toggle="modal" data-target="#cambiarPassword" style="color: #E592B5;"> <i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña</button>      
+                        <button type="button" (click)="showModalCambiarPass()" class="btn btn_link pl-0" data-toggle="modal" data-target="#cambiarPassword" style="color: #E592B5;"> <i class="fa fa-key" aria-hidden="true"></i> Cambiar contraseña</button>      
                     </div>
                 </div>
                 
@@ -37,52 +53,22 @@
        </div> 
        <div class="col-2">
           <div class="text-center">
-            <h5 class="plan">{{tipoPlan}}</h5>
+            <h5 class="plan">{{nombrePlan}}</h5>
             <div>
               <img src="assets/premium-icon.png"  class="w-100" style="min-width: 25%;"  alt="">
             </div>
-            <button type="button" class="btn btn_link" [routerLink]="['/planes']" style="color: #E592B5;">Cambiar plan</button>      
+            <button type="button" class="btn btn_link"  (click)="showModalCambiarPlan()" data-toggle="modal" data-target="#cambiarPlan" style="color: #E592B5;">Cambiar plan</button>      
           </div>
        </div>
     </div>
 </div>
 <app-footer></app-footer>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="cambiarPassword" tabindex="-1" role="dialog" aria-labelledby="cambiarPasswordLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h6 class="modal-title" id="cambiarPasswordLabel">Cambiar contraseña</h6>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Ingrese su contraseña anterior" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Ingrese su nueva contraseña" required>
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" placeholder="Confirmar contraseña" required>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn entrar">Guardar cambios</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- modal cambiar nombre -->
-<div [class.show]="showModalPass" [class.id]="modalPass" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="cambiar">
+  <!-- modal cambiar password -->
+<div [class.show]="showModalPass" [class.id]="modalPass" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="cambiarPassword">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="background-color: #131D47; color:aqua">
         <h5 class="modal-title">Cambiar contraseña</h5>
         <button type="button"  #closeAddExpenseModal class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -91,7 +77,7 @@
       <div class="modal-body">
         <form class="needs-validation " [formGroup]="cambiarContrasena" validate>
             <div class="form-group">
-                <input formControlName="oldPassword" [class.is-invalid]="validation('oldPassword')" type="password" class="form-control"  id="anterior" placeholder="Ingrese su contraseña anterior" required>
+                <input formControlName="oldPassword" (keyup)="validarAnteriorContrasena()" [class.is-invalid]="validation('oldPassword')" type="password" class="form-control"  id="anterior" placeholder="Ingrese su contraseña anterior" required>
                 <div class="invalid-feedback"> 
                   No válido
                 </div>
@@ -103,7 +89,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input formControlName="confirmNewPassword" [class.is-invalid]="validation('confirmNewPassword')" type="password" class="form-control"  id="verificar" placeholder="Confirmar contraseña" required>
+                <input  formControlName="confirmNewPassword" [class.is-invalid]="validation('confirmNewPassword')" type="password" class="form-control"  id="verificar" placeholder="Confirmar contraseña" required>
                 <div class="invalid-feedback"> 
                   No válido
                 </div>
@@ -111,10 +97,48 @@
 
             <div class="modal-footer center">
               <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">Cancelar</button>
-              <button  [disabled]="!cambiarContrasena.valid" type="button" class="btn btn-primary entrar" (click)="cambiarPassword()">Guardar</button>
+              <button  [disabled]="!cambiarContrasena.valid" type="button" class="btn entrar" (click)="cambiarPassword()">Guardar</button>
             </div>
         </form>
     </div>
   </div>
 </div>
+</div>
+
+ <!-- modal cambiar plan -->
+ <div [class.show]="showModalPlan" [class.id]="modalPlan" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="cambiarPlan">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #131D47; color:aqua">
+        <h5 class="modal-title">Cambiar plan</h5>
+        <button type="button"  #closeAddExpenseModal2 class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 col-lg-4 col-md-4 col-sm-4" *ngFor="let plan of planes">
+            <div class="card border mb-3" 
+            (click)="tipoPlan(plan._id)" 
+            
+            data-toggle="modal" 
+            data-target="#confirm">
+              <div class="card-body text-center" style="background-color: rgb(243, 177, 243);">
+                  <h6 class="card-text m-0 font-weight-bold">{{plan.tipo_plan}}</h6>
+              </div>
+              <div class="card-body pt-0 text-center">
+                  <h3>{{plan.precio}}</h3>
+                  <small>{{plan.cantidad_proyectos}} Proyectos</small> <br>
+                  <small>{{plan.cantidad_snippets}} Snippets</small>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>
+      <div class="modal-footer center">
+        <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn entrar" (click)="cambiarPlan()">Guardar</button>
+      </div>
+    </div>
+  </div>
 </div>

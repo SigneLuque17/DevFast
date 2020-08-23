@@ -4,8 +4,9 @@ export class Snippets {
     fecha_creacion: string;
     codigo: string;
     carpeta_padre:string;
-    
-  
+    lenguaje:string;
+    extension:string;
+
     constructor(){
   
     }

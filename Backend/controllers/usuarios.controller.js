@@ -67,28 +67,56 @@ usuariosController.getUser = async(req, res) => {
             console.log(err) 
         } 
         else{ 
-            console.log("Result : ", docs); 
+            console.log("Result : "); 
         } 
     });
-   
+    const plan = await planesModel.findOne({_id: {$eq:correoUsuario.plan}});
+
     res.json({
         status: 'Received',
         user: correoUsuario,
+        plan: plan,
         idUsuario: correoUsuario._id
     });
 };
 
 usuariosController.editUser = async(req, res) => {
-    const usuario = {
-        nombre: req.body.nombre,
-        contrasena: req.body.contrasena,
-        perfil: req.body.perfil,
-        plan: req.body.plan
-    };
-    await usuariosModel.findByIdAndUpdate(req.params.id, { $set: usuario }, { new: true });
+
+    const files = req.files;
+    let status;
+    if (!files) {
+      const error = new Error('NO IMAGE');
+      error.httpStatusCode = 400;
+      res.status(400).send(error);
+    } else {
+        console.log('si viene');
+    }
+
+    const usuarioUpdated = await usuariosModel.findOneAndUpdate(
+        { "_id": req.params.id },
+        { 
+            "$set": {
+                "nombre": req.body.nombre,
+                "contrasena": req.body.contrasena,
+                "perfil": req.body.perfil,
+                "plan": req.body.plan
+            }
+        },{ 
+            new: true,
+            useFindAndModify:false,
+            upsert: true                //obtener data actualizada
+        }
+    );
+    console.log(usuarioUpdated);
+
+    const plan = await planesModel.findOne({_id: {$eq:usuarioUpdated.plan}});
+    
     res.json({
-        status: 'Usuario actualizado correctamente'
-    })
+        status: 'Usuario actualizado correctamente',
+        usuario: usuarioUpdated,
+        plan: plan
+    });
+
 }
 
 usuariosController.deleteUser = async(req, res) => {

@@ -49,6 +49,14 @@ const snippetsSchema = new Schema({
     carpeta_padre: {
         type: String,
         require: true
+    },
+    lenguaje: {
+        type: String,
+        require: true
+    },
+    extension: {
+        type: String,
+        require: true
     }
     
 });

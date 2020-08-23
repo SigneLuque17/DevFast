@@ -36,3 +36,31 @@ small{
     height: 10px; 
     color: deeppink;
 }
+
+
+.codigo-snippet{
+    background-color: #0b0f1d;
+    padding-top: 0em;
+    height: 360px;
+}
+
+.custom-select:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.custom-select {
+    background-color: initial; 
+    right: 5%; 
+    color:lightgray;
+}
+
+option:hover{
+    background-color: #E592B5 !important;
+}
+
+option{
+    background-color: black; 
+    border-color: cadetblue; 
+    color:white;
+}

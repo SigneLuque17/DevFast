@@ -12,6 +12,7 @@ export class EditorComponent implements OnInit {
   @Output() codeNew = new EventEmitter<string>()
 
   editorOptions = {};
+  originalLenguage = '';
   // code: string= '';
 
 
@@ -21,12 +22,18 @@ export class EditorComponent implements OnInit {
 
   ngOnInit(){
     console.log(this.language);
+    this.originalLenguage = this.language;
     this.editorOptions = {theme: 'vs-dark', language: this.language};
     // this.code = '';
     // this.code;
   }
 
   actualizaCodigo(){
+    if (this.originalLenguage !== this.language) {
+      this.editorOptions = {language: this.language};
+      this.originalLenguage = this.language;
+    }
     this.codeNew.emit(this.code);
+
   }
 }

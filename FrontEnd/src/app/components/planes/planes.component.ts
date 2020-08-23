@@ -13,7 +13,7 @@ import { Router } from "@angular/router";
 export class PlanesComponent implements OnInit {
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
 
-  usuario:any = JSON.parse(localStorage.getItem("usuario"));
+  usuario:any = JSON.parse(sessionStorage.getItem("usuario"));
   showModal: boolean = false;
   planes: any = [];
   planSelected:string ='';
@@ -66,20 +66,14 @@ export class PlanesComponent implements OnInit {
         .subscribe((res:any) => {
           console.log(res);
           this.idUsuario = res.id;
-          localStorage.clear();
+          sessionStorage.clear();
           this.closeAddExpenseModal.nativeElement.click();
           this.showModal=false;
-          localStorage.setItem("id", JSON.stringify(this.idUsuario));
-          localStorage.setItem("correo", JSON.stringify(this.usuario.email));
+          sessionStorage.setItem("id", JSON.stringify(this.idUsuario));
+          sessionStorage.setItem("correo", JSON.stringify(this.usuario.email));
 
         });
   }
-
-  // eliminarData(){
-  //   localStorage.clear();
-  // }
-
-
 
 
 }

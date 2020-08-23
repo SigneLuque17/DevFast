@@ -50,6 +50,12 @@ small{
     box-shadow: none;
 }
 
+.custom-select {
+    background-color: initial; 
+    right: 5%; 
+    color:lightgray;
+}
+
 option:hover{
     background-color: #E592B5 !important;
 }

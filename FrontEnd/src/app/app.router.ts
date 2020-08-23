@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'landing', component: LandingPageComponent },
     { path: 'snippet', component: SnippetComponent },
-    { path: 'develop/:nombre/:id', component: DevelopComponent },
+    { path: 'develop/:id_carpeta/:nombre/:id', component: DevelopComponent },
     { path: 'login', component: LoginComponent },
     { path: 'ajustes', component: AjustesComponent},
     { path: 'iniciarSesion', component: LoginFormularioComponent },

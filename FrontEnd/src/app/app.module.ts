@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ImageToDataUrlModule } from "ngx-image2dataurl";
 
 //MODULOS
 import { MonacoEditorModule } from 'ngx-monaco-editor';
@@ -66,7 +67,9 @@ import { SafeURLPipe } from './pipes/safe-url.pipe';
     MonacoEditorModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ImageCropperModule,
+    ImageToDataUrlModule
 
   ],
   providers: [],

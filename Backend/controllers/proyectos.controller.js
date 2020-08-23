@@ -1,5 +1,6 @@
 const proyectosController = {};
 const proyectosModel = require('../models/usuarios.model');
+const usuariosModel = require('../models/usuarios.model');
 
 
 proyectosController.createProject = async (req, res) => {
@@ -15,23 +16,6 @@ proyectosController.createProject = async (req, res) => {
       status: 'status',
       req: req.body
     });
-    // const files = req.files;
-    // 
-    
-    // if (req.body.proyectosSchema.nombre_proyecto && 
-    //     req.body.proyectosSchema.fecha_creacion && 
-    //     req.body.proyectosSchema.ultima_modificacion && 
-    //     req.body.proyectosSchema.url_img) {
-    //   status = 'Proyecto almacenado correctamente';
-    //   const proyecto = new proyectosModel.proyectosSchema(req.body.proyectosSchema);
-    //   await proyecto.save();
-    //   console.log(proyecto);
-    // } else {
-    //   const error = new Error('Dato no válido');
-    //   error.httpStatusCode = 400;
-    //   res.status(400).send(error);
-    // }
-    
    
   };
   
@@ -65,25 +49,33 @@ proyectosController.editProject = async(req, res) => {
         }
     );
 
-    const proyecto = proyectoUpdated.proyectos.find(proyecto => proyecto._id == req.params.id_proyecto );
-    
+    const proyectoActualizado = proyectoUpdated.proyectos.find(proyecto => proyecto._id == req.params.id_proyecto );
+
+    const usuario = await usuariosModel.findById(req.params.id_usuario);
+    const proyectos = usuario.proyectos.filter( proyecto => proyecto.carpeta_padre == proyectoActualizado.carpeta_padre);
     res.json({
         status: 'Proyecto actualizado correctamente',
-        project: proyecto
+        project: proyectoActualizado,
+        proyectos : proyectos
     });
 }
 
 proyectosController.deleteProject = async(req, res) => {
    
     const usuario = await proyectosModel.findById(req.params.id_usuario);
-    const proyecto = usuario.proyectos.id(req.params.id_proyecto).remove();
+    const proyectoEliminado = usuario.proyectos.id(req.params.id_proyecto).remove();
+
+    const proyectos = usuario.proyectos.filter( proyecto => proyecto.carpeta_padre == proyectoEliminado.carpeta_padre);
+    console.log(proyectos);
 
     usuario.save(function (err) {
           if (err) return handleError(err);
           console.log('Proyecto eliminado con éxito');
         });
+        
     res.json({
         status: 'Proyecto eliminado correctamente',
+        proyectos: proyectos
     });
 
 }

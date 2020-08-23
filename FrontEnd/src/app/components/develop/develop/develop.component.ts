@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { EditorComponent} from '../../editor/editor.component'
 import { ProyectoService } from '../../../service/proyecto.service';
+import { SnippetService } from '../../../service/snippet.service';
 import { ActivatedRoute } from "@angular/router";
 import { DatePipe } from '@angular/common';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -16,6 +17,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class DevelopComponent implements OnInit {
   @ViewChild('closeAddExpenseModal') closeAddExpenseModal: ElementRef;
+  @ViewChild('closeAddExpenseModal2') closeAddExpenseModal2: ElementRef;
 
   //lenguajes
   javascript = 'javascript';
@@ -24,7 +26,8 @@ export class DevelopComponent implements OnInit {
   //gestion de datos de proyecto
   proyecto;
   nombreProyecto;
-  idUsuario:any = JSON.parse(localStorage.getItem("id"));
+  idUsuario:any = JSON.parse(sessionStorage.getItem("id"));
+  idCarpeta;
   codeNewHTML;
   codeNewCSS;
   codeNewJS;
@@ -33,16 +36,23 @@ export class DevelopComponent implements OnInit {
   url;
 
   modal;
-  showModal: boolean = false;
+  showModal: boolean = false; //cambiar nombre proyecto
+  showModalSnippet: boolean = false;
+
   cambiarNombre:FormGroup = new FormGroup({
     nombre: new FormControl('', [Validators.required])
   });
+
+  formularioSnippet:FormGroup = new FormGroup({
+    nombre_snippet: new FormControl('', [Validators.required])
+  });
  
 
-  constructor(private _proyectoService:ProyectoService, private activatedRoute: ActivatedRoute) {
+  constructor(private _proyectoService:ProyectoService, private activatedRoute: ActivatedRoute, private _snippetService: SnippetService) {
     this.activatedRoute.params.subscribe(params => {
     console.log(params['id']);
     this.nombreProyecto = params['nombre'];
+    this.idCarpeta = params['id_carpeta'];
     this._proyectoService.getProject(this.idUsuario, params['id'])
       .subscribe( (res:any) => {
         this.proyecto = res.project;
@@ -61,6 +71,7 @@ export class DevelopComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
   actualizaCodigo(languaje, event){
     switch (languaje) {
@@ -181,6 +192,47 @@ export class DevelopComponent implements OnInit {
      this.cambiarNombre.reset();
   }
 
+  createSnippet(){
+    this.activatedRoute.params.subscribe(params => {
+      console.log(params['id_carpeta']);
+      if(params['id_carpeta']==undefined){
+        this.idCarpeta = "";
+      } else {
+      this.idCarpeta = params['id_carpeta'];
+      }
+    const pipe = new DatePipe('en-US');
+    const now = Date.now();
+    const myFormattedDate = pipe.transform(now, 'longDate');
+    const myFormattedDate2 = pipe.transform(now, 'short');
+    // this.fechaCreado=myFormattedDate;
+
+
+    if (this.formularioSnippet.get('nombre_snippet').valid) {
+      let datos = {
+        'nombre_snippet':this.formularioSnippet.get("nombre_snippet").value,
+        'fecha_creacion':myFormattedDate,
+        'ultima_modificacion':myFormattedDate2,
+        'codigo':this.codeNewJS,
+        'carpeta_padre':this.idCarpeta,
+        'lenguaje': "javascript",
+        'extension': "js"
+      }
+
+      this._snippetService.createSnippet(this.idUsuario, datos)
+          .subscribe((res:any) => {
+            console.log(res.status);
+
+            this.closeAddExpenseModal2.nativeElement.click();
+            this.showModalSnippet=false;
+          });
+         
+    }
+  });
+  }
+
+  regresar(){
+    window.history.back();
+  }
   
 
 }

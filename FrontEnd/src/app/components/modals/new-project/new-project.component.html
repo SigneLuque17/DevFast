@@ -32,7 +32,7 @@ z-index: 2000;" >
           </a>
         </h2>
     </div>
-    <div class="border sidebar" (click)="showModalCreateFolder()" data-toggle="modal" data-target="#crearSnippet" (mouseover)="hideTextSnippet=false" (mouseout)="hideTextSnippet=true">
+    <div class="border sidebar" (click)="showModalCreateSnippet()" data-toggle="modal" data-target="#crearSnippet" (mouseover)="hideTextSnippet=false" (mouseout)="hideTextSnippet=true">
         <h2 class="mt-1 mb-1">
           <a  style="color: white;">
             <div class="row ml-0 mr-0">
@@ -54,7 +54,7 @@ z-index: 2000;" >
 <div [class.show]="showModalProyecto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" id="crearProyecto">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="background-color: #131D47; color:aqua">
           <h5 class="modal-title">Crear nuevo proyecto</h5>
           <button type="button"  #closeAddExpenseModal class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -63,13 +63,18 @@ z-index: 2000;" >
         <div class="modal-body">
          <form class="needs-validation " [formGroup]="formularioProyecto" validate>
              <div class="form-row">
-                <div class="col-md-12 mb-12 w-50 p-4">
-                    <input formControlName="nombre_proyecto" type="text" class="form-control" id="nombreProyecto" placeholder="Ingrese el nombre" required>
-                </div>
+              <div [hidden]="permisoProyecto" class="center text-center w-100">
+                <h5>Usted ha alcanzado el límite de proyectos</h5>
+                <img src="assets/exclamation.gif" class="w-25" alt="warning">
+              </div>
+              <div class="col-md-12 mb-12 w-50 p-4">
+                  <input [hidden]="!permisoProyecto" formControlName="nombre_proyecto" type="text" class="form-control" id="nombreProyecto" placeholder="Ingrese el nombre" required>
+              </div>
+                
              </div>
             <div class="modal-footer center">
-            <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary entrar" (click)="createProject()">Crear</button>
+            <button type="button" class="btn  entrar" data-dismiss="modal">Cancelar</button>
+            <button type="submit" [hidden]="!permisoProyecto" class="btn  entrar" (click)="createProject()">Crear</button>
             </div>
         </form>
       </div>
@@ -81,7 +86,7 @@ z-index: 2000;" >
   <div [class.show]="showModalCarpeta" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" id="crearCarpeta">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="background-color: #131D47; color:aqua">
           <h5 class="modal-title">Crear nueva carpeta</h5>
           <button type="button"  #closeAddExpenseModal2 class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -95,8 +100,8 @@ z-index: 2000;" >
                 </div>
              </div>
             <div class="modal-footer center">
-            <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary entrar" (click)="createFolder()">Crear</button>
+            <button type="button" class="btn  entrar" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn  entrar" (click)="createFolder()">Crear</button>
             </div>
         </form>
       </div>
@@ -108,8 +113,8 @@ z-index: 2000;" >
 <div [class.show]="showModalSnippet" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" id="crearSnippet">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Crear nueva carpeta</h5>
+      <div class="modal-header" style="background-color: #131D47; color:aqua">
+        <h5 class="modal-title">Crear nuevo snippet</h5>
         <button type="button"  #closeAddExpenseModal3 class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -117,13 +122,17 @@ z-index: 2000;" >
       <div class="modal-body">
        <form class="needs-validation " [formGroup]="formularioSnippet" validate>
            <div class="form-row">
+              <div [hidden]="permisoSnippet" class="center text-center w-100">
+                <h5>Usted ha alcanzado el límite de snippets</h5>
+                <img src="assets/exclamation.gif" class="w-25" alt="warning">
+              </div>
               <div class="col-md-12 mb-12 w-50 p-4">
-                  <input formControlName="nombre_snippet" type="text" class="form-control" id="nombreSnippet" placeholder="Ingrese el nombre" required>
+                  <input [hidden]="!permisoSnippet" formControlName="nombre_snippet" type="text" class="form-control" id="nombreSnippet" placeholder="Ingrese el nombre" required>
               </div>
            </div>
           <div class="modal-footer center">
-          <button type="button" class="btn btn-secondary entrar" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary entrar" (click)="createSnippet()">Crear</button>
+          <button type="button" class="btn  entrar" data-dismiss="modal">Cancelar</button>
+          <button type="submit"  [hidden]="!permisoSnippet" class="btn  entrar" (click)="createSnippet()">Crear</button>
           </div>
       </form>
     </div>
