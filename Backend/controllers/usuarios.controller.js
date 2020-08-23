@@ -3,6 +3,7 @@ const usuariosModel = require('../models/usuarios.model');
 const planesModel = require('../models/planes.model');
 
 
+
 usuariosController.getPlanes = async(request, response) => { //función asincrona
     const planes = await planesModel.find(); //respuesta de espera
     response.json(planes);
@@ -25,8 +26,6 @@ usuariosController.getPlan = async(req, res) => { //función asincrona
     });
 
 };
-
-
 
 usuariosController.createUser = async (req, res) => {
     const plan = await planesModel.findOne({_id: {$eq:req.body.plan} }, function (err, docs) { 

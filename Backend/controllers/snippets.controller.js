@@ -15,8 +15,7 @@ snippetController.createSnippet = async (req, res) => {
       status: 'Snippet creado exitosamente',
       req: req.body
     });
-  };
-  
+};
 
 snippetController.getSnippet = async(req, res) => {
     const usuario = await snippetModel.findById(req.body.id_usuario);

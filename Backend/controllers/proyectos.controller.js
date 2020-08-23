@@ -19,7 +19,6 @@ proyectosController.createProject = async (req, res) => {
    
   };
   
-
 proyectosController.getProject = async(req, res) => {
     const usuario = await proyectosModel.findById(req.body.id_usuario);
     const proyecto = usuario.proyectos.find(proyecto => proyecto._id == req.body.id_proyecto);
